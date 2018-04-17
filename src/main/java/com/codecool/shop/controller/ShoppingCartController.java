@@ -36,4 +36,14 @@ public class ShoppingCartController extends HttpServlet {
         engine.process("shopping-cart/shopping_cart.html", context, resp.getWriter());
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    }
+
+    protected void doPatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    }
 }
