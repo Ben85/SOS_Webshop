@@ -2,7 +2,7 @@ package com.codecool.shop.model;
 
 import java.util.HashMap;
 
-public class shoppingCart {
+public class ShoppingCart {
 
 
     private int id;
@@ -11,11 +11,11 @@ public class shoppingCart {
 
     HashMap<Product, Integer> itemList = new HashMap<Product, Integer>();
 
-    shoppingCart(){
+    ShoppingCart(){
         this.id = ++counter;
     }
 
-    shoppingCart(HashMap<Product, Integer> hashMap){
+    ShoppingCart(HashMap<Product, Integer> hashMap){
         this.id = ++counter;
         itemList = (HashMap<Product, Integer>) hashMap.clone();
     }
