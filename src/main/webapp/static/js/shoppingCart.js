@@ -26,7 +26,7 @@ dom = {
                 let quantity = button.value;
                 $.ajax({
                     url: '/shopping-cart',
-                    type: 'PATCH',
+                    type: 'PUT',
                     data: {productId: productId,
                            quantity: quantity}
                 });
