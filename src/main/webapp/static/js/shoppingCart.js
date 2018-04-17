@@ -9,9 +9,11 @@ dom = {
         for (let button of removeButtons) {
             button.addEventListener('click', function() {
                 let productId = button.dataset.id;
-                $.post('/route', {
-                    productId: productId
-                })
+                $.ajax({
+                    url: '/shopping-cart',
+                    type: 'DELETE',
+                    data: {productId: productId}
+                });
             })
         }
     },
@@ -22,10 +24,12 @@ dom = {
             button.addEventListener('click', function() {
                 let productId = button.dataset.id;
                 let quantity = button.value;
-                $.post('/route', {
-                    productId: productId,
-                    quantity: quantity
-                })
+                $.ajax({
+                    url: '/shopping-cart',
+                    type: 'PATCH',
+                    data: {productId: productId,
+                           quantity: quantity}
+                });
             })
         }
     }
