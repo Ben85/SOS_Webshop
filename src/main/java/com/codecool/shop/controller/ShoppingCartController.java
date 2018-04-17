@@ -33,7 +33,7 @@ public class ShoppingCartController extends HttpServlet {
         context.setVariable("recipient", "World");
         context.setVariable("category", productCategoryDataStore.find(1));
         context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-        engine.process("cart/shopping_cart.html", context, resp.getWriter());
+        engine.process("shopping-cart/shopping_cart.html", context, resp.getWriter());
     }
 
 }
