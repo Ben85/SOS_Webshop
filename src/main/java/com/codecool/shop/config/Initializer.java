@@ -103,7 +103,19 @@ public class Initializer implements ServletContextListener {
             }
         );
 
-
-
+        processJSONDataFile(
+            "products",
+            servletContext,
+            (JSONObject currentObject) -> {
+                productDataStore.add(new Product(
+                    (String) currentObject.get("name"),
+                    ((Double) currentObject.get("defaultPrice")).floatValue(),
+                    (String) currentObject.get("currencyString"),
+                    (String) currentObject.get("description"),
+                    productCategoryDataStore.find(((Long) currentObject.get("categoryId")).intValue()),
+                    supplierDataStore.find(((Long) currentObject.get("supplierId")).intValue())
+                ));
+            }
+        );
     }
 }
