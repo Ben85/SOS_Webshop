@@ -1,5 +1,7 @@
 package com.codecool.shop.model;
 
+import com.codecool.shop.dao.implementation.ProductDaoMem;
+
 import java.util.HashMap;
 
 public class ShoppingCart {
@@ -11,6 +13,24 @@ public class ShoppingCart {
     public ShoppingCart() {
         this.id = ++counter;
         this.itemList = new HashMap<>();
+    }
+
+    public void changeItemQuantity(int id) {
+        Product item = ProductDaoMem.getInstance().find(id);
+        if (!itemList.containsKey(item)) {
+            itemList.put(item, 1);
+        } else {
+            itemList.put(item, itemList.get(item) + 1);
+        }
+    }
+
+    public void changeItemQuantity(int id, int quantity) {
+        Product item = ProductDaoMem.getInstance().find(id);
+        if (quantity == 0) {
+            itemList.remove(item);
+        } else {
+            itemList.put(item, quantity);
+        }
     }
 
     public int getId() {
