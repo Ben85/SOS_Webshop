@@ -57,7 +57,20 @@ public class Initializer implements ServletContextListener {
         return null;
     }
 
+    private void processJSONDataFile(
+        String fileName,
+        ServletContext servletContext,
+        Consumer<JSONObject> processorFunction
+    ) {
+        JSONArray dataArray = (JSONArray) Objects.requireNonNull(loadDataFromJSONResource(
+            servletContext,
+            fileName
+        )).get("data");
 
+        for (Object data : dataArray) {
+            processorFunction.accept((JSONObject) data);
+        }
+    }
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -66,7 +79,6 @@ public class Initializer implements ServletContextListener {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-
 
 
     }
