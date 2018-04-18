@@ -30,7 +30,9 @@ import java.util.function.Function;
 @WebListener
 public class Initializer implements ServletContextListener {
 
-    private JSONObject loadDataFromJSONResource(ServletContext servletContext, String fileName) {
+    private ServletContext servletContext;
+
+    private JSONObject loadDataFromJSONResource(String fileName) {
         fileName = "/data/" + fileName + ".json";
 
         ClassLoader classLoader = getClass().getClassLoader();
@@ -59,13 +61,9 @@ public class Initializer implements ServletContextListener {
 
     private void processJSONDataFile(
         String fileName,
-        ServletContext servletContext,
         Consumer<JSONObject> processorFunction
     ) {
-        JSONArray dataArray = (JSONArray) Objects.requireNonNull(loadDataFromJSONResource(
-            servletContext,
-            fileName
-        )).get("data");
+        JSONArray dataArray = (JSONArray) Objects.requireNonNull(loadDataFromJSONResource(fileName)).get("data");
 
         for (Object data : dataArray) {
             processorFunction.accept((JSONObject) data);
@@ -74,7 +72,7 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ServletContext servletContext = sce.getServletContext();
+        servletContext = sce.getServletContext();
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
@@ -82,7 +80,6 @@ public class Initializer implements ServletContextListener {
 
         processJSONDataFile(
             "suppliers",
-            servletContext,
             (JSONObject currentObject) -> {
                 supplierDataStore.add(new Supplier(
                     (String) currentObject.get("name"),
@@ -93,7 +90,6 @@ public class Initializer implements ServletContextListener {
 
         processJSONDataFile(
             "product-categories",
-            servletContext,
             (JSONObject currentObject) -> {
                 productCategoryDataStore.add(new ProductCategory(
                     (String) currentObject.get("name"),
@@ -105,7 +101,6 @@ public class Initializer implements ServletContextListener {
 
         processJSONDataFile(
             "products",
-            servletContext,
             (JSONObject currentObject) -> {
                 productDataStore.add(new Product(
                     (String) currentObject.get("name"),
