@@ -10,32 +10,107 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 @WebListener
 public class Initializer implements ServletContextListener {
 
+    private ServletContext servletContext;
+
+    private JSONObject loadDataFromJSONResource(String fileName) {
+        fileName = "/data/" + fileName + ".json";
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        File jsonFile = new File(servletContext.getRealPath("/") + fileName);
+        StringBuilder fileContent = new StringBuilder();
+
+        try (Scanner scanner = new Scanner(jsonFile)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                fileContent.append(line).append("\n");
+            }
+        }
+        catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        try {
+            return (JSONObject)(new JSONParser()).parse(fileContent.toString());
+        }
+        catch (ParseException exception) {
+            exception.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private void processJSONDataFile(
+        String fileName,
+        Consumer<JSONObject> processorFunction
+    ) {
+        JSONArray dataArray = (JSONArray) Objects.requireNonNull(loadDataFromJSONResource(fileName)).get("data");
+
+        for (Object data : dataArray) {
+            processorFunction.accept((JSONObject) data);
+        }
+    }
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        servletContext = sce.getServletContext();
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
-        //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
+        processJSONDataFile(
+            "suppliers",
+            (JSONObject currentObject) -> {
+                supplierDataStore.add(new Supplier(
+                    (String) currentObject.get("name"),
+                    (String) currentObject.get("description")
+                ));
+            }
+        );
 
-        //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(tablet);
+        processJSONDataFile(
+            "product-categories",
+            (JSONObject currentObject) -> {
+                productCategoryDataStore.add(new ProductCategory(
+                    (String) currentObject.get("name"),
+                    (String) currentObject.get("department"),
+                    (String) currentObject.get("description")
+                ));
+            }
+        );
 
-        //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+        processJSONDataFile(
+            "products",
+            (JSONObject currentObject) -> {
+                productDataStore.add(new Product(
+                    (String) currentObject.get("name"),
+                    ((Double) currentObject.get("defaultPrice")).floatValue(),
+                    (String) currentObject.get("currencyString"),
+                    (String) currentObject.get("description"),
+                    productCategoryDataStore.find(((Long) currentObject.get("categoryId")).intValue()),
+                    supplierDataStore.find(((Long) currentObject.get("supplierId")).intValue())
+                ));
+            }
+        );
     }
 }
