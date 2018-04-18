@@ -21,7 +21,7 @@ import java.io.IOException;
 public class ShoppingCartController extends HttpServlet {
 
     private ShoppingCart shoppingCart;
-    private final String SHOPPING_CART_SESSION_KEY = "shoppingCart";
+    static final String SHOPPING_CART_SESSION_KEY = "shoppingCart";
     private final int DELETE_AMOUNT = 0;
 
     @Override
