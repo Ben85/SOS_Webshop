@@ -1,0 +1,10 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Tablet",
+      "department": "Hardware",
+      "description": "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display."
+    }
+  ]
+}
