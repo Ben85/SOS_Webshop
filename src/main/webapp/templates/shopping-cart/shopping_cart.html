@@ -39,6 +39,9 @@
     <div class="well well-sm">
         <strong>Shopping Cart</strong>
     </div>
+    <div>
+        <a href="/"><button>Continue shopping</button></a>
+    </div>
 
     <div id="products" class="row list-group">
         <div th:switch="${shoppingCart.size()}">
@@ -62,11 +65,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-md-4">
-                                    <a class="btn btn-danger remove" th:data-id="${entry.key.getId()}">Remove</a>
+                                    <a class="btn btn-danger remove" th:data-id="${entry.key.getId()}" href="/shopping-cart">Remove</a>
                                 </div>
                                 <div class="col-xs-12 col-md-8">
                                     <input title="Amount" class="amount" th:data-id="${entry.key.getId()}" type="number" th:value="${entry.value}">
-                                    <a class="btn btn-success set" th:data-id="${entry.key.getId()}">Set</a>
+                                    <a class="btn btn-success set" th:data-id="${entry.key.getId()}" href="/shopping-cart">Set</a>
                                 </div>
                             </div>
                         </div>
