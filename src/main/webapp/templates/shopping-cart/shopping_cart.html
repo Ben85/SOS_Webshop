@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <title>Codecool Shop</title>
 
@@ -13,11 +13,11 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -26,7 +26,7 @@
 
     <script src="static/js/shoppingCart.js" defer></script>
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
 <body>
@@ -39,31 +39,53 @@
     <div class="well well-sm">
         <strong>Shopping Cart</strong>
     </div>
+    <div>
+        <a href="/"><button>Continue shopping</button></a>
+    </div>
 
     <div id="products" class="row list-group">
-        <div class="item col-xs-4 col-lg-4" th:each="entry : ${shoppingCart}">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${entry.key.getId()} + '.jpg'" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading" th:text="${entry.key.getName()}">Product name</h4>
-                    <p class="group inner list-group-item-text" th:text="${entry.key.getDescription()}">Product description... </p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead" th:text="${entry.key.getPrice()}">100 USD</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-4">
-                            <a class="btn btn-danger remove" th:data-id="${entry.key.getId()}">Remove</a>
-                        </div>
-                        <div class="col-xs-12 col-md-8">
-                            <input title="Amount" class="amount" th:data-id="${entry.key.getId()}" type="number" th:value="${entry.value}">
-                            <a class="btn btn-success set" th:data-id="${entry.key.getId()}">Set</a>
+        <div th:switch="${shoppingCart.size()}">
+            <div th:case="0">
+                <h2>Your cart is empty</h2>
+                <img id="empty_shopping_basket"
+                     src="https://thumbs.dreamstime.com/b/empty-shopping-basket-chrome-8778239.jpg"
+                     alt="shopping basket">
+
+            </div>
+
+            <div th:case="*">
+                <div class="item col-xs-4 col-lg-4" th:each="entry : ${shoppingCart}">
+                    <div class="thumbnail">
+                        <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
+                             th:attr="src='/static/img/product_' + ${entry.key.getId()} + '.jpg'" alt=""/>
+                        <div class="caption">
+                            <h4 class="group inner list-group-item-heading" th:text="${entry.key.getName()}">Product
+                                name</h4>
+                            <p class="group inner list-group-item-text" th:text="${entry.key.getDescription()}">Product
+                                description... </p>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <p class="lead" th:text="${entry.key.getPrice()}">100 USD</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-4">
+                                    <a class="btn btn-danger remove" th:data-id="${entry.key.getId()}" href="/shopping-cart">Remove</a>
+                                </div>
+                                <div class="col-xs-12 col-md-8">
+                                    <input title="Amount" class="amount" th:data-id="${entry.key.getId()}" type="number" th:value="${entry.value}">
+                                    <a class="btn btn-success set" th:data-id="${entry.key.getId()}" href="/shopping-cart">Set</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="well well-sm">
+        <strong>Sum price: </strong><span th:text="${sumPrice}">100 USD</span>
     </div>
 
 </div>
