@@ -80,6 +80,18 @@ public class Initializer implements ServletContextListener {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
+        processJSONDataFile(
+            "suppliers",
+            servletContext,
+            (JSONObject currentObject) -> {
+                supplierDataStore.add(new Supplier(
+                    (String) currentObject.get("name"),
+                    (String) currentObject.get("description")
+                ));
+            }
+        );
+
+
 
     }
 }
