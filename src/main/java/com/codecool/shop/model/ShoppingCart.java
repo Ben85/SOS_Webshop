@@ -51,6 +51,7 @@ public class ShoppingCart {
     }
 
     private void calculateSumPrice() {
+        this.sumPrice = 0;
         for (Map.Entry<Product, Integer> entry : this.itemList.entrySet()) {
             Product key = entry.getKey();
             Integer value = entry.getValue();
