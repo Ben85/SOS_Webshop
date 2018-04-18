@@ -2,7 +2,7 @@ package com.codecool.shop.model;
 
 import java.util.HashMap;
 
-public class UserClass {
+public class Customer {
 
     private String name;
     private int id;
@@ -17,14 +17,14 @@ public class UserClass {
     private String bAddress;
     HashMap<String, String> userData = new HashMap<>();
 
-    UserClass(){ this.id = ++count; }
+    public Customer(){ this.id = ++count; }
 
-    UserClass(HashMap<String, String> userInput){
+    public Customer(HashMap<String, String> userInput){
         this.id = ++count;
         userData = (HashMap<String, String>) userInput.clone();
     }
 
-    public UserClass(String name, String email, String phoneNum, String bZip, String zip, String city, String bCity, String address, String bAddress) {
+    public Customer(String name, String email, String phoneNum, String bZip, String zip, String city, String bCity, String address, String bAddress) {
         this.name = name;
         this.email = email;
         this.phoneNum = phoneNum;
@@ -36,7 +36,7 @@ public class UserClass {
         this.bAddress = bAddress;
     }
 
-    public UserClass(String name, String email, String phoneNum, String zip, String city, String address) {
+    public Customer(String name, String email, String phoneNum, String zip, String city, String address) {
         this.name = name;
         this.email = email;
         this.phoneNum = phoneNum;
