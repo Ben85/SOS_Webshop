@@ -20,10 +20,16 @@ dom = {
 
     modifyButtons: function() {
         let modifyButtons = document.getElementsByClassName("set");
+        let amounts = document.getElementsByClassName("amount");
         for (let button of modifyButtons) {
             button.addEventListener('click', function() {
                 let productId = button.dataset.id;
-                let quantity = button.value;
+                let quantity;
+                for (let amount of amounts) {
+                    if (amount.dataset.id === productId) {
+                        quantity = amount.value;
+                    }
+                }
                 $.ajax({
                     url: '/shopping-cart',
                     type: 'PUT',
