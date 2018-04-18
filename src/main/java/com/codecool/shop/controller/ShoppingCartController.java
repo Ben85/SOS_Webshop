@@ -5,6 +5,7 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.model.ShoppingCart;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -15,8 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 @WebServlet(urlPatterns = {"/shopping-cart"})
 public class ShoppingCartController extends HttpServlet {
+
+    private ShoppingCart shoppingCart;
+    private final String SHOPPING_CART_SESSION_KEY = "shoppingCart";
+    private final int DELETE_AMOUNT = 0;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,16 +44,28 @@ public class ShoppingCartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("POST");
+        int productId = Integer.parseInt(req.getParameter("productId"));
+        getShoppingCart(req).changeItemQuantity(productId);
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("PUT");
+        String requestBody = req.getReader().readLine();
+        String[] requestBodyParts = requestBody.split("&");
+        int productId = Integer.parseInt(requestBodyParts[0].replaceAll("\\D+", ""));
+        int quantity = Integer.parseInt(requestBodyParts[1].replaceAll("\\D+", ""));
+        getShoppingCart(req).changeItemQuantity(productId, quantity);
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("DELETE");
+        int productId = Integer.parseInt(req.getReader().readLine().replaceAll("\\D+", ""));
+        getShoppingCart(req).changeItemQuantity(productId, DELETE_AMOUNT);
     }
+
+    ShoppingCart getShoppingCart(HttpServletRequest request) {
+        shoppingCart = (ShoppingCart) request.getSession().getAttribute(SHOPPING_CART_SESSION_KEY);
+        return shoppingCart;
+    }
+
 }
