@@ -17,19 +17,19 @@ public class ShoppingCart {
 
     public void changeItemQuantity(int id) {
         Product item = ProductDaoMem.getInstance().find(id);
-        if (!itemList.containsKey(item)) {
-            itemList.put(item, 1);
+        if (!this.itemList.containsKey(item)) {
+            this.itemList.put(item, 1);
         } else {
-            itemList.put(item, itemList.get(item) + 1);
+            this.itemList.put(item, this.itemList.get(item) + 1);
         }
     }
 
     public void changeItemQuantity(int id, int quantity) {
         Product item = ProductDaoMem.getInstance().find(id);
         if (quantity == 0) {
-            itemList.remove(item);
+            this.itemList.remove(item);
         } else {
-            itemList.put(item, quantity);
+            this.itemList.put(item, quantity);
         }
     }
 

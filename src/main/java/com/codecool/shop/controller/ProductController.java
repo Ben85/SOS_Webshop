@@ -23,11 +23,17 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        
+
+        HttpSession session = req.getSession();
+        if (session.isNew()) {
+            ShoppingCart shoppingCart = new ShoppingCart();
+            session.setAttribute(ShoppingCartController.SHOPPING_CART_SESSION_KEY, shoppingCart);
+        }
 
 
 //        Map params = new HashMap<>();
