@@ -30,6 +30,32 @@ import java.util.function.Function;
 @WebListener
 public class Initializer implements ServletContextListener {
 
+    private JSONObject loadDataFromJSONResource(ServletContext servletContext, String fileName) {
+        fileName = "/data/" + fileName + ".json";
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        File jsonFile = new File(servletContext.getRealPath("/") + fileName);
+        StringBuilder fileContent = new StringBuilder();
+
+        try (Scanner scanner = new Scanner(jsonFile)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                fileContent.append(line).append("\n");
+            }
+        }
+        catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        try {
+            return (JSONObject)(new JSONParser()).parse(fileContent.toString());
+        }
+        catch (ParseException exception) {
+            exception.printStackTrace();
+        }
+
+        return null;
+    }
 
 
 
