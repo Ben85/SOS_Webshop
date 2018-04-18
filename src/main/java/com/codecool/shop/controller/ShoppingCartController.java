@@ -40,6 +40,7 @@ public class ShoppingCartController extends AbstractController {
         context.setVariable("recipient", "World");
         context.setVariable("category", productCategoryDataStore.find(1));
         context.setVariable("shoppingCart", getShoppingCart(req).getItemList());
+        context.setVariable("sumPrice", getShoppingCart(req).getSumPrice());
         engine.process("shopping-cart/shopping_cart.html", context, resp.getWriter());
     }
 
