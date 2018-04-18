@@ -4,20 +4,13 @@ import java.util.HashMap;
 
 public class ShoppingCart {
 
-
+    private HashMap<Product, Integer> itemList;
     private int id;
     private static int counter = 0;
 
-
-    HashMap<Product, Integer> itemList = new HashMap<Product, Integer>();
-
-    ShoppingCart(){
+    public ShoppingCart() {
         this.id = ++counter;
-    }
-
-    ShoppingCart(HashMap<Product, Integer> hashMap){
-        this.id = ++counter;
-        itemList = (HashMap<Product, Integer>) hashMap.clone();
+        this.itemList = new HashMap<>();
     }
 
     public int getId() {
@@ -25,7 +18,7 @@ public class ShoppingCart {
     }
 
     public HashMap<Product, Integer> getItemList() {
-        return itemList;
+        return this.itemList;
     }
 
     public void setItemList(HashMap<Product, Integer> itemList) {
