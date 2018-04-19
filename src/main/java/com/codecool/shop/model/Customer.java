@@ -15,6 +15,7 @@ public class Customer {
     private String bCity;
     private String address;
     private String bAddress;
+    private boolean isSameAddress = false;
     HashMap<String, String> userData = new HashMap<>();
 
     public Customer(){ this.id = ++count; }
@@ -44,6 +45,11 @@ public class Customer {
         this.city = city;
         this.address = address;
     }
+
+    public boolean getIsSameAddress() {
+        return isSameAddress;
+    }
+
 
     public String getName() {
         return name;

@@ -22,6 +22,7 @@ public class SummaryController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        initializeShoppingCart(req);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -29,7 +30,12 @@ public class SummaryController extends AbstractController {
         ShoppingCart shoppingCart = getShoppingCart(req);
         Customer customer = getCustomer(req);
 
-        context.setVariable("shoppingCart", shoppingCart);
+        //String name, String email, String phoneNum, String bZip, String zip,
+        // String city, String bCity, String address, String bAddress
+        Customer test = new Customer("Lapos Elemér", "em@ail.com", "14548989", "8888", "8888",
+                "Város", "Város", "cím", "cím");
+
+        context.setVariable("shoppingCart", shoppingCart.getItemList());
         context.setVariable("customer", customer);
         engine.process("checkout/summary.html", context, resp.getWriter());
 
