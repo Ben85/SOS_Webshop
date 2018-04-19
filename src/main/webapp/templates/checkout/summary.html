@@ -115,14 +115,17 @@
                 </div>
             </div>
         </div>
-
-
-
+        <div>
+            <form action="/summary" method="POST">
+                <label for="payment">Fizetési mód: </label>
+                <select name="payment" id="payment">
+                    <option value="payAtDelivery">Utánvét</option>
+                    <option value="paypal">Paypal</option>
+                </select>
+                <button type="submit">Rendben</button>
+            </form>
+        </div>
     </div>
-
     <div th:replace="footer.html :: copy"></div>
-
-
-
 </body>
 </html>

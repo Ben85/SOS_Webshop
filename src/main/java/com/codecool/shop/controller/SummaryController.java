@@ -34,6 +34,10 @@ public class SummaryController extends AbstractController {
         context.setVariable("customer", customer);
         engine.process("checkout/summary.html", context, resp.getWriter());
 
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
     }
 }
