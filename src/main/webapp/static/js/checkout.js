@@ -15,7 +15,7 @@ dom = {
 
     addSameAddressListener() {
         let sameAddressCheckbox = document.getElementById("sameAddress");
-        let isChecked = false;
+        let isChecked = sameAddressCheckbox.checked;
         sameAddressCheckbox.addEventListener("change", function () {
             isChecked = !isChecked;
             dom.sameAddress(isChecked);
