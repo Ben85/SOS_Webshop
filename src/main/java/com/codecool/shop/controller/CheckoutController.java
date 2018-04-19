@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/checkout"})
@@ -25,7 +26,11 @@ public class CheckoutController extends AbstractController {
                 req.getParameter("city"),
                 req.getParameter("billingCity"),
                 req.getParameter("address"),
-                req.getParameter("billingAddress"));
+                req.getParameter("billingAddress"),
+                req.getParameter("sameAsAbove"));
+
+        HttpSession session = req.getSession();
+        session.setAttribute("customer", customer);
 
         resp.sendRedirect("/summary");
     }

@@ -30,11 +30,6 @@ public class SummaryController extends AbstractController {
         ShoppingCart shoppingCart = getShoppingCart(req);
         Customer customer = getCustomer(req);
 
-        //String name, String email, String phoneNum, String bZip, String zip,
-        // String city, String bCity, String address, String bAddress
-        Customer test = new Customer("Lapos Elemér", "em@ail.com", "14548989", "8888", "8888",
-                "Város", "Város", "cím", "cím");
-
         context.setVariable("shoppingCart", shoppingCart.getItemList());
         context.setVariable("customer", customer);
         engine.process("checkout/summary.html", context, resp.getWriter());
