@@ -1,45 +1,378 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="author" content="Codecool"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+    <link th:href="@{https://fonts.googleapis.com/css?family=Bungee+Hairline}" rel="stylesheet" type="text/css">
+
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/static/css/images/icons/favicon.png"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/fonts/themify/themify-icons.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/fonts/elegant-font/html-css/style.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="static/vendor/lightbox2/css/lightbox.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <!--===============================================================================================-->
 
     <title>Codecool Shop</title>
 
     <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+   <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script> -->
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" /> -->
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" /> -->
+
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+ <!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script> -->
 
     <script src="static/js/index.js" defer></script>
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/custom.css" /> -->
+
 </head>
 
-<body>
+<body class="animsition">
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
+<!-- Header -->
+<!-- Header -->
+<header class="header1">
+    <!-- Header desktop -->
+    <div class="container-menu-header">
+
+        <div class="wrap_header">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <h3>SoS</h3>
+            </a>
+
+            <!-- Menu -->
+            <div class="wrap_menu">
+                <nav class="menu">
+                    <ul class="main_menu">
+                        <li>
+                            <a href="/">Nyitó oldal</a>
+
+                        </li>
+
+                        <li>
+                            <a href="/">Termékek</a>
+                            <ul class="sub_menu">
+                                <li><a href="/">Csaj</a></li>
+                                <li><a href="/">Srác</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="sale-noti">
+                            <a href="/">Akció</a>
+                        </li>
+
+                        <li>
+                            <a href="/">Rólunk</a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Header Icon -->
+            <div class="header-icons">
+                <a href="#" class="header-wrapicon1 dis-block">
+                    <img src="/static/css/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+                </a>
+
+                <span class="linedivide1"></span>
+
+                <div class="header-wrapicon2">
+                    <img src="http://icons.iconarchive.com/icons/icons8/ios7/256/Ecommerce-Shopping-Basket-icon.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                    <span class="header-icons-noti">0</span>
+
+                    <!-- Header cart noti -->
+                    <div class="header-cart header-dropdown">
+                        <ul class="header-cart-wrapitem">
+                            <li class="header-cart-item">
+                                <div class="header-cart-item-img">
+                                    <img src="http://icons.iconarchive.com/icons/icons8/ios7/256/Ecommerce-Shopping-Basket-icon.png" alt="IMG">
+                                </div>
+
+                                <div class="header-cart-item-txt">
+                                    <a class="header-cart-item-name" th:each="element: ${shoppingCart}"><p th:text="${element.key.getName()}">Termék név</p></a>
+
+                                    <span class="header-cart-item-info" th:each="element: ${shoppingCart}"><p th:text="${element.value}">db</p><p th:text="${element.key.getPrice()}">Ár</p></span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="header-cart-total">
+                            Total: $75.00
+                        </div>
+
+                        <div class="header-cart-buttons">
+                            <div class="header-cart-wrapbtn">
+                                <!-- Button -->
+                                <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                    View Cart
+                                </a>
+                            </div>
+
+                            <div class="header-cart-wrapbtn">
+                                <!-- Button -->
+                                <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                    Check Out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Mobile -->
+    <div class="wrap_header_mobile">
+        <!-- Logo moblie -->
+        <a href="index.html" class="logo-mobile">
+            <h3>SoS</h3>
+        </a>
+
+        <!-- Button show menu -->
+        <div class="btn-show-menu">
+            <!-- Header Icon mobile -->
+            <div class="header-icons-mobile">
+                <a href="#" class="header-wrapicon1 dis-block">
+                    <img src="/static/css/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+                </a>
+
+                <span class="linedivide2"></span>
+
+                <div class="header-wrapicon2">
+                    <img src="http://icons.iconarchive.com/icons/icons8/ios7/256/Ecommerce-Shopping-Basket-icon.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                    <span class="header-icons-noti">0</span>
+
+                    <!-- Header cart noti -->
+                    <div class="header-cart header-dropdown">
+                        <ul class="header-cart-wrapitem">
+                            <li class="header-cart-item">
+                                <div class="header-cart-item-img">
+                                    <img src="http://icons.iconarchive.com/icons/icons8/ios7/256/Ecommerce-Shopping-Basket-icon.png" alt="IMG">
+                                </div>
+
+                                <div class="header-cart-item-txt">
+                                    <a class="header-cart-item-name">
+                                        White Shirt With Pleat Detail Back
+                                    </a>
+
+                                    <span class="header-cart-item-info">
+											1 x $19.00
+										</span>
+                                </div>
+                            </li>
+
+                            <li class="header-cart-item">
+                                <div class="header-cart-item-img">
+                                    <img src="static/css/images/item-cart-02.jpg" alt="IMG">
+                                </div>
+
+                                <div class="header-cart-item-txt">
+                                    <a class="header-cart-item-name">
+                                        Converse All Star Hi Black Canvas
+                                    </a>
+
+                                    <span class="header-cart-item-info">
+											1 x $39.00
+										</span>
+                                </div>
+                            </li>
+
+                            <li class="header-cart-item">
+                                <div class="header-cart-item-img">
+                                    <img src="static/css/images/item-cart-03.jpg" alt="IMG">
+                                </div>
+
+                                <div class="header-cart-item-txt">
+                                    <a class="header-cart-item-name">
+                                        Nixon Porter Leather Watch In Tan
+                                    </a>
+
+                                    <span class="header-cart-item-info">
+											1 x $17.00
+										</span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="header-cart-total">
+                            Total: $75.00
+                        </div>
+
+                        <div class="header-cart-buttons">
+                            <div class="header-cart-wrapbtn">
+                                <!-- Button -->
+                                <a href="/" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                    View Cart
+                                </a>
+                            </div>
+
+                            <div class="header-cart-wrapbtn">
+                                <!-- Button -->
+                                <a class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                    Check Out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div class="wrap-side-menu" >
+        <nav class="side-menu">
+            <ul class="main-menu">
+
+                <li class="item-menu-mobile">
+                    <a href="index.html">Nyitó oldal</a>
+                    <ul class="sub-menu">
+                        <li><a href="/">Első oldal</a></li>
+                        <li><a href="/">Második oldal</a></li>
+                        <li><a href="/">Harmadik oldal</a></li>
+                    </ul>
+                    <i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
+                </li>
+
+                <li class="item-menu-mobile">
+                    <a href="/">Termékek</a>
+                </li>
+
+                <li class="item-menu-mobile">
+                    <a href="/">Akciók</a>
+                </li>
+
+                <li class="item-menu-mobile">
+                    <a href="/">Rólunk</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Slide1 -->
+<section class="slide1">
+    <div class="wrap-slick1">
+        <div class="slick1">
+            <div class="item-slick1 item1-slick1" style="background-image: url(https://images.unsplash.com/photo-1480358074177-c2f76f7e00d3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=18a218a162099b0ae35cef1a049c3f61&auto=format&fit=crop&w=1350&q=80);">
+                <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
+							Megérkezett a 2018-as kollekció
+						</span>
+
+                    <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
+                        Széles választék
+                    </h2>
+
+                    <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="zoomIn">
+                        <!-- Button -->
+                        <a href="/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                            Vásárlás
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-slick1 item2-slick1" style="background-image: url(https://images.unsplash.com/photo-1440965514975-4b4c4f29a39e?ixlib=rb-0.3.5&s=eaa46d3ef4dad6e447618934dbbae8d1&auto=format&fit=crop&w=1050&q=80);">
+                <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rollIn">
+							Megérkezett a 2018-as kollekció
+						</span>
+
+                    <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="lightSpeedIn">
+                        Széles választék
+                    </h2>
+
+                    <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="slideInUp">
+                        <!-- Button -->
+                        <a href="/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                            Vásárlás
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-slick1 item3-slick1" style="background-image: url(https://images.unsplash.com/photo-1518808056154-2fe527d1a157?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=37ea88b2869e9704ce97bba33bebd86c&auto=format&fit=crop&w=1400&q=80);">
+                <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rotateInDownLeft">
+							Megérkezett a 2018-as kollekció
+						</span>
+
+                    <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="rotateInUpRight">
+                        Széles választék
+                    </h2>
+
+                    <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="rotateIn">
+                        <!-- Button -->
+                        <a href="/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                            Vásárlás
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="well well-sm">
+        <strong th:text="${category.name}">Category Title</strong>
 
 <div class="container">
     <div class="row">
         <a href="/shopping-cart"><img id="check_shopping_cart"
                                       src="http://icons.iconarchive.com/icons/icons8/ios7/256/Ecommerce-Shopping-Basket-icon.png"
                                       alt=""></a>
+
     </div>
 
     <div id="category well well-sm" th:each="cat,iterStat : ${categories}">
@@ -62,14 +395,16 @@
                                 <p class="lead" th:text="'Szín: ' + ${prod.getColor()}">Color</p>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
                                 <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <a class="btn btn-success btn-add-to-cart" th:id="${prod.getId()}" >Add to
+                                <a href="/" class="btn btn-success btn-add-to-cart" th:id="${prod.getId()}" >Add to
                                     cart</a>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -79,6 +414,48 @@
 </div>
 
 <div th:replace="footer.html :: copy"></div>
+
+<script type="text/javascript" src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script type="text/javascript" src="static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script type="text/javascript" src="static/vendor/bootstrap/js/popper.js"></script>
+<script type="text/javascript" src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script type="text/javascript" src="static/vendor/select2/select2.min.js"></script>
+<script type="text/javascript">
+    $(".selection-1").select2({
+        minimumResultsForSearch: 20,
+        dropdownParent: $('#dropDownSelect1')
+    });
+</script>
+<!--===============================================================================================-->
+<script type="text/javascript" src="static/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="static/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+<script type="text/javascript" src="static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script type="text/javascript" src="static/vendor/lightbox2/js/lightbox.min.js"></script>
+<!--===============================================================================================-->
+<script type="text/javascript" src="static/vendor/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $('.block2-btn-addcart').each(function(){
+        var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+        $(this).on('click', function(){
+            swal(nameProduct, "is added to cart !", "success");
+        });
+    });
+
+    $('.block2-btn-addwishlist').each(function(){
+        var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+        $(this).on('click', function(){
+            swal(nameProduct, "is added to wishlist !", "success");
+        });
+    });
+</script>
+
+<!--===============================================================================================-->
+<script src="static/js/main.js"></script>
 
 </body>
 </html>
