@@ -17,15 +17,15 @@ public class CheckoutController extends AbstractController {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         Customer customer = new Customer(
-                req.getParameter("user_name"),
+                req.getParameter("userName"),
                 req.getParameter("email"),
                 req.getParameter("phoneNum"),
-                req.getParameter("bZip"),
-                req.getParameter("zip"),
+                req.getParameter("billingZipCode"),
+                req.getParameter("zipCode"),
                 req.getParameter("city"),
-                req.getParameter("bCity"),
+                req.getParameter("billingCity"),
                 req.getParameter("address"),
-                req.getParameter("bAddress"));
+                req.getParameter("billingAddress"));
 
         resp.sendRedirect("/summary");
     }
