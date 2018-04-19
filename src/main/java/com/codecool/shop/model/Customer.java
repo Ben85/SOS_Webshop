@@ -15,7 +15,7 @@ public class Customer {
     private String bCity;
     private String address;
     private String bAddress;
-    private boolean isSameAddress = false;
+    private String isSameAddress;
     HashMap<String, String> userData = new HashMap<>();
 
     public Customer(){ this.id = ++count; }
@@ -25,7 +25,7 @@ public class Customer {
         userData = (HashMap<String, String>) userInput.clone();
     }
 
-    public Customer(String name, String email, String phoneNum, String bZip, String zip, String city, String bCity, String address, String bAddress) {
+    public Customer(String name, String email, String phoneNum, String bZip, String zip, String city, String bCity, String address, String bAddress, String isSameAddress) {
         this.name = name;
         this.email = email;
         this.phoneNum = phoneNum;
@@ -35,6 +35,7 @@ public class Customer {
         this.bCity = bCity;
         this.address = address;
         this.bAddress = bAddress;
+        this.isSameAddress = isSameAddress;
     }
 
     public Customer(String name, String email, String phoneNum, String zip, String city, String address) {
@@ -47,7 +48,7 @@ public class Customer {
     }
 
     public boolean getIsSameAddress() {
-        return isSameAddress;
+        return Boolean.valueOf(isSameAddress);
     }
 
 

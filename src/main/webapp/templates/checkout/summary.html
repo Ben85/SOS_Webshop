@@ -73,7 +73,7 @@
                 <div th:case="true">
                     <p>A számlázási és szállítási cím megegyezik</p>
                 </div>
-                <div th:case="false">
+                <div th:case="*">
                     <table>
                         <tr>
                             <th>Település</th>
@@ -109,15 +109,6 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
                                 <p class="lead" th:text="${entry.key.getPrice()}">100 USD</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-4">
-                                <a class="btn btn-danger remove" th:data-id="${entry.key.getId()}" href="/shopping-cart">Remove</a>
-                            </div>
-                            <div class="col-xs-12 col-md-8">
-                                <input title="Amount" class="amount" th:data-id="${entry.key.getId()}" type="number" th:value="${entry.value}">
-                                <a class="btn btn-success set" th:data-id="${entry.key.getId()}" href="/shopping-cart">Set</a>
                             </div>
                         </div>
                     </div>
