@@ -130,4 +130,8 @@ public class Customer {
 
         return id;
     }
+
+    public boolean isSameAddress(){
+        return this.address.equals(this.bAddress) && this.city.equals(this.bCity) && this.zip.equals(this.bZip);
+    }
 }
