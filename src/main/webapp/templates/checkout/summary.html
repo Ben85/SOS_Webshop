@@ -40,13 +40,56 @@
     <div class="container">
 
         <div id="customer">
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <td th:text="${customer.getName()}"></td>
-                    </tr>
-                </table>
+            <h3>Személyes adatok</h3>
+            <table>
+                <tr>
+                    <th>Név</th>
+                    <td th:text="${customer.getName()}"></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td th:text="${customer.getEmail()}"></td>
+                </tr>
+                <tr>
+                    <th>Telefonszám</th>
+                    <td th:text="${customer.getPhoneNum()}"></td>
+                </tr>
+                <tr>
+                    <th>Település</th>
+                    <td th:text="${customer.getCity()}"></td>
+                </tr>
+                <tr>
+                    <th>Cím</th>
+                    <td th:text="${customer.getAddress()}"></td>
+                </tr>
+                <tr>
+                    <th>Irányítószám</th>
+                    <td th:text="${customer.getZip()}"></td>
+                </tr>
+            </table>
 
+            <h4>Számlázási cím</h4>
+            <div th:switch="${customer.getIsSameAddress}">
+                <div th:case="true">
+                    <p>A számlázási és szállítási cím megegyezik</p>
+                </div>
+                <div th:case="false">
+                    <table>
+                        <tr>
+                            <th>Település</th>
+                            <td th:text="${customer.getbCity()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Cím</th>
+                            <td th:text="${customer.getbAddress()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Irányítószám</th>
+                            <td th:text="${customer.getbZip()}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <div class="well well-sm">
