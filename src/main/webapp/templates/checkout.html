@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <title>Codecool Shop</title>
 
@@ -13,20 +13,20 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <script src="static/js/index.js" defer></script>
+    <script src="static/js/checkout.js" defer></script>
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
 <body>
@@ -36,54 +36,55 @@
 </div>
 
 <div class="container">
+
     <div class="well well-sm">
-        <strong>Checkout</strong>
+        <strong>Personal information</strong>
     </div>
 
-    <form>
+    <form action="/checkout" method="POST">
         <p>
-            <label name="user_name">Name</label><br>
-            <input name="user_name" required>
+            <label for="userName">Name</label><br>
+            <input name="userName" id="userName" required>
         </p>
         <p>
-            <label name="email">E-mail</label><br>
-            <input name="e-mail" required>
+            <label for="email">E-mail</label><br>
+            <input name="email" id="email" required>
+        <p id="emailError"></p>
+        <p>
+            <label for="phoneNum">Phone number</label><br>
+            <input name="phoneNum" id="phoneNum" required>
         </p>
         <p>
-            <label name="phoneNum">Phone number</label><br>
-            <input name="phoneNum" required>
+            <label for="zipCode">Zip code</label><br>
+            <input name="zipCode" id="zipCode" required>
         </p>
         <p>
-            <label name="zip">Zip code</label><br>
-            <input name="zip" required>
+            <label for="city">City</label><br>
+            <input name="city" id="city" required>
         </p>
         <p>
-            <label name="city">City</label><br>
-            <input name="city" required>
+            <label for="address">Address</label><br>
+            <input name="address" id="address" required>
         </p>
-        <p>
-            <label name="address">Address</label><br>
-            <input name="address" required>
-        </p>
+        <br>
         <h4>Billing address</h4>
         <p>
-            <label name="bZip">Zip code</label><br>
-            <input name="bZip">
+            <input type="checkbox" title="sameAsAbove" name="sameAsAbove" value="same"> Same as above.<br>
         </p>
         <p>
-            <label name="bCity">City</label><br>
-            <input name="bCity">
+            <label for="billingZipCode">Zip code</label><br>
+            <input name="billingZipCode" id="billingZipCode">
         </p>
         <p>
-            <label name="bAddress">Address</label><br>
-            <input name="bAddress">
+            <label for="billingCity">City</label><br>
+            <input name="billingCity" id="billingCity">
         </p>
-        <button type="submit">Send</button>
+        <p>
+            <label for="billingAddress">Address</label><br>
+            <input name="billingAddress" id="billingAddress">
+        </p>
+        <button type="submit" id="submit">Next</button>
     </form>
-
-    <div>
-
-    </div>
 
 </div>
 
