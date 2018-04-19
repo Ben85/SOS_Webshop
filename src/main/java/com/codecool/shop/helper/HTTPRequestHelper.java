@@ -85,42 +85,43 @@ public class HTTPRequestHelper {
         return getResponse(connection.getInputStream());
     }
 
-    public String executePost(String targetUrl, String[] urlParameters, HashMap<String, String> requestProperties)
+    public String executePost(String targetUrl, String urlParameters, HashMap<String, String> requestProperties)
         throws IOException
     {
         return executeRequest(
             "POST",
             targetUrl,
-            String.join(",", urlParameters),
+            urlParameters,
             requestProperties
         );
     }
 
-    public String executeGet(String targetUrl, String[] urlParameters,  HashMap<String, String> requestProperties)
+    public String executeGet(String targetUrl, String urlParameters,  HashMap<String, String> requestProperties)
         throws IOException
     {
         return executeRequest(
             "GET",
             targetUrl,
-            String.join(",", urlParameters), requestProperties
+            urlParameters,
+            requestProperties
         );
     }
 
-    public String executePost(String targetUrl, String[] urlParameters)
+    public String executePost(String targetUrl, String urlParameters)
         throws IOException
     {
         return executeRequest("POST",
-            targetUrl, String.join(",", urlParameters),
+            targetUrl, urlParameters,
             null
         );
     }
 
-    public String executeGet(String targetUrl, String[] urlParameters)
+    public String executeGet(String targetUrl, String urlParameters)
         throws IOException
     {
         return executeRequest(
             "GET",
-            targetUrl, String.join(",", urlParameters),
+            targetUrl, urlParameters,
             null
         );
     }
