@@ -2,13 +2,11 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.ShoppingCart;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,7 +16,17 @@ public class CheckoutController extends AbstractController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        Customer customer = new Customer();
+        Customer customer = new Customer(
+                req.getParameter("user_name"),
+                req.getParameter("email"),
+                req.getParameter("phoneNum"),
+                req.getParameter("bZip"),
+                req.getParameter("zip"),
+                req.getParameter("city"),
+                req.getParameter("bCity"),
+                req.getParameter("address"),
+                req.getParameter("bAddress"));
+
         resp.sendRedirect("/summary");
     }
 
@@ -28,9 +36,6 @@ public class CheckoutController extends AbstractController {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        ShoppingCart shoppingCart = (ShoppingCart) req.getSession().getAttribute("shoppingCart");
-
-        context.setVariable("shoppingCart", shoppingCart);
         engine.process("checkout/checkout.html", context, resp.getWriter());
 
     }

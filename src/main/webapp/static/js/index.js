@@ -3,10 +3,10 @@ dom = {
         dom.addToCartButtons();
     },
 
-    addToCartButtons: function() {
-        buttons = document.getElementsByClassName("btn-add-to-cart");
+    addToCartButtons: function () {
+        let buttons = document.getElementsByClassName("btn-add-to-cart");
         for (let button of buttons) {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 let productId = button.getAttribute("id");
                 $.post('/shopping-cart', {
                     productId: productId
