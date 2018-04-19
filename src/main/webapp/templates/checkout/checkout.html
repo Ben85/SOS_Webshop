@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Codecool Shop</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <script src="static/js/checkout.js" defer></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+</head>
+
+<body>
+
+<div class="jumbotron text-center">
+    <h1>Codecool Shop</h1>
+</div>
+
+<div class="container">
+
+    <form action="/checkout" method="POST">
+        <div class="well well-sm">
+            <strong>Személyes adatok</strong>
+        </div>
+        <p>
+            <label for="userName">Név</label><br>
+            <input name="userName" id="userName" required>
+        </p>
+        <p>
+            <label for="email">Email</label><br>
+            <input name="email" id="email" required>
+        <p id="emailError"></p>
+        <p>
+            <label for="phoneNum">Telefonszám</label><br>
+            <input name="phoneNum" id="phoneNum" required>
+        </p>
+        <p>
+            <label for="zipCode">Irányítószám</label><br>
+            <input name="zipCode" id="zipCode" required>
+        </p>
+        <p>
+            <label for="city">Település</label><br>
+            <input name="city" id="city" required>
+        </p>
+        <p>
+            <label for="address">Cím</label><br>
+            <input name="address" id="address" required>
+        </p>
+        <div class="well well-sm">
+            <strong>Számlázási cím</strong>
+        </div>
+        <p>
+            <input type="checkbox" id="sameAddress" title="sameAsAbove" name="sameAsAbove" value="true"> Megegyezik a fentiekkel.<br>
+        </p>
+        <div id="billingAddressDiv">
+            <p>
+                <label for="billingZipCode">Irányítószám</label><br>
+                <input name="billingZipCode" id="billingZipCode">
+            </p>
+            <p>
+                <label for="billingCity">Település</label><br>
+                <input name="billingCity" id="billingCity">
+            </p>
+            <p>
+                <label for="billingAddress">Cím</label><br>
+                <input name="billingAddress" id="billingAddress">
+            </p>
+        </div>
+        <button type="submit" id="submit">Tovább</button>
+    </form>
+
+</div>
+
+<div th:replace="footer.html :: copy"></div>
+
+</body>
+</html>

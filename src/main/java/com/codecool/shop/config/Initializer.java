@@ -44,15 +44,13 @@ public class Initializer implements ServletContextListener {
                 String line = scanner.nextLine();
                 fileContent.append(line).append("\n");
             }
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
 
         try {
-            return (JSONObject)(new JSONParser()).parse(fileContent.toString());
-        }
-        catch (ParseException exception) {
+            return (JSONObject) (new JSONParser()).parse(fileContent.toString());
+        } catch (ParseException exception) {
             exception.printStackTrace();
         }
 
@@ -60,8 +58,8 @@ public class Initializer implements ServletContextListener {
     }
 
     private void processJSONDataFile(
-        String fileName,
-        Consumer<JSONObject> processorFunction
+            String fileName,
+            Consumer<JSONObject> processorFunction
     ) {
         JSONArray dataArray = (JSONArray) Objects.requireNonNull(loadDataFromJSONResource(fileName)).get("data");
 
@@ -79,38 +77,40 @@ public class Initializer implements ServletContextListener {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         processJSONDataFile(
-            "suppliers",
-            (JSONObject currentObject) -> {
-                supplierDataStore.add(new Supplier(
-                    (String) currentObject.get("name"),
-                    (String) currentObject.get("description")
-                ));
-            }
+                "suppliers",
+                (JSONObject currentObject) -> {
+                    supplierDataStore.add(new Supplier(
+                            (String) currentObject.get("name"),
+                            (String) currentObject.get("description")
+                    ));
+                }
         );
 
         processJSONDataFile(
-            "product-categories",
-            (JSONObject currentObject) -> {
-                productCategoryDataStore.add(new ProductCategory(
-                    (String) currentObject.get("name"),
-                    (String) currentObject.get("department"),
-                    (String) currentObject.get("description")
-                ));
-            }
+                "product-categories",
+                (JSONObject currentObject) -> {
+                    productCategoryDataStore.add(new ProductCategory(
+                            (String) currentObject.get("name"),
+                            (String) currentObject.get("department"),
+                            (String) currentObject.get("description")
+                    ));
+                }
         );
 
         processJSONDataFile(
-            "products",
-            (JSONObject currentObject) -> {
-                productDataStore.add(new Product(
-                    (String) currentObject.get("name"),
-                    ((Double) currentObject.get("defaultPrice")).floatValue(),
-                    (String) currentObject.get("currencyString"),
-                    (String) currentObject.get("description"),
-                    productCategoryDataStore.find(((Long) currentObject.get("categoryId")).intValue()),
-                    supplierDataStore.find(((Long) currentObject.get("supplierId")).intValue())
-                ));
-            }
+                "products",
+                (JSONObject currentObject) -> {
+                    productDataStore.add(new Product(
+                            (String) currentObject.get("name"),
+                            ((Long) currentObject.get("defaultPrice")),
+                            (String) currentObject.get("currencyString"),
+                            (String) currentObject.get("description"),
+                            productCategoryDataStore.find(((Long) currentObject.get("categoryId")).intValue()),
+                            supplierDataStore.find(((Long) currentObject.get("supplierId")).intValue()),
+                            (String) currentObject.get("size"),
+                            (String) currentObject.get("color")
+                    ));
+                }
         );
     }
 }

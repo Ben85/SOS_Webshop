@@ -60,7 +60,7 @@ public class ShoppingCart {
     }
 
     public String getSumPrice() {
-        return String.valueOf(this.sumPrice) + " USD";
+        return String.valueOf(this.sumPrice) + " HUF";
     }
 
 }
