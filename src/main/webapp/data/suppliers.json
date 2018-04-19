@@ -2,13 +2,13 @@
   "data": [
     {
       "id": 1,
-      "name": "Lenovo",
-      "description": "Computer"
+      "name": "Rapanui",
+      "description": "Rapanui ruhák"
     },
     {
       "id": 2,
-      "name": "Amazon",
-      "description": "Digital content and services"
+      "name": "Bam",
+      "description": "Bam ruhák"
     }
   ]
 }

@@ -36,11 +36,9 @@
     <div class="well well-sm">
         <strong>Customer</strong>
     </div>
-
     <div class="container">
-
+        <h3>Személyes adatok</h3>
         <div id="customer">
-            <h3>Személyes adatok</h3>
             <table>
                 <tr>
                     <th>Név</th>
@@ -73,7 +71,7 @@
                 <div th:case="true">
                     <p>A számlázási és szállítási cím megegyezik</p>
                 </div>
-                <div th:case="false">
+                <div th:case="*">
                     <table>
                         <tr>
                             <th>Település</th>
@@ -111,27 +109,21 @@
                                 <p class="lead" th:text="${entry.key.getPrice()}">100 USD</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-4">
-                                <a class="btn btn-danger remove" th:data-id="${entry.key.getId()}" href="/shopping-cart">Remove</a>
-                            </div>
-                            <div class="col-xs-12 col-md-8">
-                                <input title="Amount" class="amount" th:data-id="${entry.key.getId()}" type="number" th:value="${entry.value}">
-                                <a class="btn btn-success set" th:data-id="${entry.key.getId()}" href="/shopping-cart">Set</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
+        <div>
+            <form action="/summary" method="POST">
+                <label for="payment">Fizetési mód: </label>
+                <select name="payment" id="payment">
+                    <option value="payAtDelivery">Utánvét</option>
+                    <option value="paypal">Paypal</option>
+                </select>
+                <button type="submit">Rendben</button>
+            </form>
+        </div>
     </div>
-
     <div th:replace="footer.html :: copy"></div>
-
-
-
 </body>
 </html>

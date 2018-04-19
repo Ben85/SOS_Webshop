@@ -12,13 +12,14 @@ public abstract class AbstractController extends HttpServlet {
     private final String SHOPPING_CART_SESSION_KEY = "shoppingCart";
     private final String CUSTOMER = "customer";
     private ShoppingCart shoppingCart;
-    private Customer customer;
+    private Customer customer = null;
 
     void initializeShoppingCart(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.isNew()) {
             ShoppingCart shoppingCart = new ShoppingCart();
             session.setAttribute(SHOPPING_CART_SESSION_KEY, shoppingCart);
+            session.setAttribute(CUSTOMER, null);
         }
     }
 
