@@ -7,10 +7,8 @@ const Initializers = {
         const EXECUTE_PAYMENT_URL = '/paypal/execute-payment';
 
         paypal.Button.render({
-            env: 'production',
-
+            env: 'sandbox',
             commit: true,
-
             style: {
                 color: 'gold',
                 size: 'small'
@@ -24,12 +22,10 @@ const Initializers = {
 
             onAuthorize: function (data, actions) {
                 return paypal.request.post(EXECUTE_PAYMENT_URL, {
-                    paymentID: data.paymentID,
-                    payerID:   data.payerID
+                    paymentId: data.paymentID,
+                    payerId:   data.payerID
                 }).then(function() {
 
-                    // The payment is complete!
-                    // You can now show a confirmation message to the customer
                 });
             },
 
@@ -48,6 +44,3 @@ const Initializers = {
     }
 };
 
-(() => {
-    Initializers.initalizePaypal();
-})();

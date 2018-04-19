@@ -19,10 +19,11 @@ public class HTTPRequestHelper {
         return singletonInstance;
     }
 
-    private HttpURLConnection createHTTPConnection(URL targetURL, HashMap<String, String> requestProperties)
+    private HttpURLConnection createHTTPConnection(URL targetURL, String method, HashMap<String, String> requestProperties)
         throws IOException
     {
-        HttpURLConnection connection = (HttpURLConnection) targetURL.openConnection();;
+        HttpURLConnection connection = (HttpURLConnection) targetURL.openConnection();
+        connection.setRequestMethod(method);
 
         for (Map.Entry<String, String> property : requestProperties.entrySet()) {
             connection.setRequestProperty(
@@ -37,11 +38,11 @@ public class HTTPRequestHelper {
         return connection;
     }
 
-    private void sendRequest(OutputStream requestStream, String urlParameters)
+    private void sendRequest(OutputStream requestStream, String requestBody)
         throws IOException
     {
         DataOutputStream writer = new DataOutputStream(requestStream);
-        writer.writeBytes(urlParameters);
+        writer.writeBytes(requestBody);
         writer.close();
     }
 
@@ -63,7 +64,7 @@ public class HTTPRequestHelper {
     private String executeRequest(
         String method,
         String targetURL,
-        String urlParameters,
+        String requestBody,
         HashMap<String, String> requestProperties
     )
         throws IOException
@@ -73,55 +74,55 @@ public class HTTPRequestHelper {
         if (requestProperties == null) {
             requestProperties = new HashMap<String, String>() {{
                 put("Content-Type", "application/x-www-form-urlencoded");
-                put("Content-Length", Integer.toString(urlParameters.getBytes().length));
+                put("Content-Length", Integer.toString(requestBody.getBytes().length));
                 put("Content-Language", "en-US");
             }};
         }
 
-        HttpURLConnection connection = createHTTPConnection(url, requestProperties);
+        HttpURLConnection connection = createHTTPConnection(url, method, requestProperties);
 
-        sendRequest(connection.getOutputStream(), urlParameters);
+        sendRequest(connection.getOutputStream(), requestBody);
 
         return getResponse(connection.getInputStream());
     }
 
-    public String executePost(String targetUrl, String urlParameters, HashMap<String, String> requestProperties)
+    public String executePost(String targetUrl, String requestBody, HashMap<String, String> requestProperties)
         throws IOException
     {
         return executeRequest(
             "POST",
             targetUrl,
-            urlParameters,
+            requestBody,
             requestProperties
         );
     }
 
-    public String executeGet(String targetUrl, String urlParameters,  HashMap<String, String> requestProperties)
+    public String executeGet(String targetUrl, String requestBody,  HashMap<String, String> requestProperties)
         throws IOException
     {
         return executeRequest(
             "GET",
             targetUrl,
-            urlParameters,
+            requestBody,
             requestProperties
         );
     }
 
-    public String executePost(String targetUrl, String urlParameters)
+    public String executePost(String targetUrl, String requestBody)
         throws IOException
     {
         return executeRequest("POST",
-            targetUrl, urlParameters,
+            targetUrl, requestBody,
             null
         );
     }
 
-    public String executeGet(String targetUrl, String urlParameters)
+    public String executeGet(String targetUrl, String requestBody)
         throws IOException
     {
         return executeRequest(
             "GET",
-            targetUrl, urlParameters,
+            targetUrl, requestBody,
             null
         );
     }

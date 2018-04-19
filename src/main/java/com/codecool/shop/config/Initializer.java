@@ -1,5 +1,6 @@
 package com.codecool.shop.config;
 
+import com.codecool.shop.controller.CreatePaymentController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -30,12 +31,11 @@ import java.util.function.Function;
 @WebListener
 public class Initializer implements ServletContextListener {
 
-    private ServletContext servletContext;
+    public static ServletContext servletContext;
 
     private JSONObject loadDataFromJSONResource(String fileName) {
         fileName = "/data/" + fileName + ".json";
 
-        ClassLoader classLoader = getClass().getClassLoader();
         File jsonFile = new File(servletContext.getRealPath("/") + fileName);
         StringBuilder fileContent = new StringBuilder();
 
