@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Codecool Shop</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <script src="static/js/shoppingCart.js" defer></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1>Codecool Shop</h1>
+    </div>
+
+    <div class="well well-sm">
+        <strong>Customer</strong>
+    </div>
+
+    <div class="container">
+
+        <div id="customer">
+            <h3>Személyes adatok</h3>
+            <table>
+                <tr>
+                    <th>Név</th>
+                    <td th:text="${customer.getName()}"></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td th:text="${customer.getEmail()}"></td>
+                </tr>
+                <tr>
+                    <th>Telefonszám</th>
+                    <td th:text="${customer.getPhoneNum()}"></td>
+                </tr>
+                <tr>
+                    <th>Település</th>
+                    <td th:text="${customer.getCity()}"></td>
+                </tr>
+                <tr>
+                    <th>Cím</th>
+                    <td th:text="${customer.getAddress()}"></td>
+                </tr>
+                <tr>
+                    <th>Irányítószám</th>
+                    <td th:text="${customer.getZip()}"></td>
+                </tr>
+            </table>
+
+            <h4>Számlázási cím</h4>
+            <div th:switch="${customer.getIsSameAddress}">
+                <div th:case="true">
+                    <p>A számlázási és szállítási cím megegyezik</p>
+                </div>
+                <div th:case="false">
+                    <table>
+                        <tr>
+                            <th>Település</th>
+                            <td th:text="${customer.getbCity()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Cím</th>
+                            <td th:text="${customer.getbAddress()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Irányítószám</th>
+                            <td th:text="${customer.getbZip()}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="well well-sm">
+            <strong>Shopping Cart</strong>
+        </div>
+
+        <div id="products" class="row list-group">
+            <div th:switch="${shoppingCart.size()}">
+                <div th:case="0">
+                    <h2>Your cart is empty</h2>
+                    <img id="empty_shopping_basket"
+                         src="https://thumbs.dreamstime.com/b/empty-shopping-basket-chrome-8778239.jpg"
+                         alt="shopping basket">
+                </div>
+                <div th:case="*">
+                    <div class="item col-xs-4 col-lg-4" th:each="entry : ${shoppingCart}">
+                        <div class="thumbnail">
+                            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
+                                 th:attr="src='/static/img/product_' + ${entry.key.getId()} + '.jpg'" alt=""/>
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading" th:text="${entry.key.getName()}">Product
+                                    name</h4>
+                                <p class="group inner list-group-item-text" th:text="${entry.key.getDescription()}">Product
+                                    description... </p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <p class="lead" th:text="${entry.key.getPrice()}">100 USD</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-4">
+                                        <a class="btn btn-danger remove" th:data-id="${entry.key.getId()}" href="/shopping-cart">Remove</a>
+                                    </div>
+                                    <div class="col-xs-12 col-md-8">
+                                        <input title="Amount" class="amount" th:data-id="${entry.key.getId()}" type="number" th:value="${entry.value}">
+                                        <a class="btn btn-success set" th:data-id="${entry.key.getId()}" href="/shopping-cart">Set</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div th:replace="footer.html :: copy"></div>
+
+
+
+</body>
+</html>

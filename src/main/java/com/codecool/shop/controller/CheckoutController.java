@@ -36,7 +36,7 @@ public class CheckoutController extends AbstractController {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        engine.process("checkout.html", context, resp.getWriter());
+        engine.process("checkout/checkout.html", context, resp.getWriter());
 
     }
 }
