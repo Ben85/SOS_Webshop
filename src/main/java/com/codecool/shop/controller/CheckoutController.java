@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Customer;
+import com.codecool.shop.model.ShoppingCart;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -26,6 +27,10 @@ public class CheckoutController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
+        ShoppingCart shoppingCart = (ShoppingCart) req.getSession().getAttribute("shoppingCart");
+
+        context.setVariable("shoppingCart", shoppingCart);
         engine.process("checkout.html", context, resp.getWriter());
+
     }
 }
