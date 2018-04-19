@@ -60,15 +60,23 @@ public class HTTPRequestHelper {
         return response.toString();
     }
 
-    private String executeRequest(String method, String targetURL, String urlParameters)
+    private String executeRequest(
+        String method,
+        String targetURL,
+        String urlParameters,
+        HashMap<String, String> requestProperties
+    )
         throws IOException
     {
         URL url = new URL(targetURL);
-        HashMap<String, String> requestProperties = new HashMap<String, String>() {{
-            put("Content-Type", "application/x-www-form-urlencoded");
-            put("Content-Length", Integer.toString(urlParameters.getBytes().length));
-            put("Content-Language", "en-US");
-        }};
+
+        if (requestProperties == null) {
+            requestProperties = new HashMap<String, String>() {{
+                put("Content-Type", "application/x-www-form-urlencoded");
+                put("Content-Length", Integer.toString(urlParameters.getBytes().length));
+                put("Content-Language", "en-US");
+            }};
+        }
 
         HttpURLConnection connection = createHTTPConnection(url, requestProperties);
 
@@ -77,15 +85,43 @@ public class HTTPRequestHelper {
         return getResponse(connection.getInputStream());
     }
 
+    public String executePost(String targetUrl, String[] urlParameters, HashMap<String, String> requestProperties)
+        throws IOException
+    {
+        return executeRequest(
+            "POST",
+            targetUrl,
+            String.join(",", urlParameters),
+            requestProperties
+        );
+    }
+
+    public String executeGet(String targetUrl, String[] urlParameters,  HashMap<String, String> requestProperties)
+        throws IOException
+    {
+        return executeRequest(
+            "GET",
+            targetUrl,
+            String.join(",", urlParameters), requestProperties
+        );
+    }
+
     public String executePost(String targetUrl, String[] urlParameters)
         throws IOException
     {
-        return executeRequest("POST", targetUrl, String.join(",", urlParameters));
+        return executeRequest("POST",
+            targetUrl, String.join(",", urlParameters),
+            null
+        );
     }
 
     public String executeGet(String targetUrl, String[] urlParameters)
         throws IOException
     {
-        return executeRequest("GET", targetUrl, String.join(",", urlParameters));
+        return executeRequest(
+            "GET",
+            targetUrl, String.join(",", urlParameters),
+            null
+        );
     }
 }
