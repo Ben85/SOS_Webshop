@@ -39,6 +39,8 @@ public class ProductController extends AbstractController {
 
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore);
+        context.setVariable("shoppingCart", getShoppingCart(req).getItemList());
+        context.setVariable("sumPrice", getShoppingCart(req).getSumPrice());
         engine.process("product/index.html", context, resp.getWriter());
     }
 
