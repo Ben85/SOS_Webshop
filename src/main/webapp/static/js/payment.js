@@ -3,8 +3,11 @@
 // Initializer:
 const Initializers = {
     initalizePaypal: () => {
+        const CREATE_PAYMENT_URL  = '/paypal/create-payment';
+        const EXECUTE_PAYMENT_URL = '/paypal/execute-payment';
+
         paypal.Button.render({
-            env: 'production', // Or 'sandbox',
+            env: 'production',
 
             commit: true,
 
@@ -14,15 +17,20 @@ const Initializers = {
             },
 
             payment: function (data, actions) {
-                /*
-                 * Set up the payment here
-                 */
+                return paypal.request.post(CREATE_PAYMENT_URL).then(function(data) {
+                    return data.id;
+                });
             },
 
             onAuthorize: function (data, actions) {
-                /*
-                 * Execute the payment here
-                 */
+                return paypal.request.post(EXECUTE_PAYMENT_URL, {
+                    paymentID: data.paymentID,
+                    payerID:   data.payerID
+                }).then(function() {
+
+                    // The payment is complete!
+                    // You can now show a confirmation message to the customer
+                });
             },
 
             onCancel: function (data, actions) {
