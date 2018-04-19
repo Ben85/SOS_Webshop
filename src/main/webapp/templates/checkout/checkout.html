@@ -37,53 +37,55 @@
 
 <div class="container">
 
-    <div class="well well-sm">
-        <strong>Personal information</strong>
-    </div>
-
     <form action="/checkout" method="POST">
+        <div class="well well-sm">
+            <strong>Személyes adatok</strong>
+        </div>
         <p>
-            <label for="userName">Name</label><br>
+            <label for="userName">Név</label><br>
             <input name="userName" id="userName" required>
         </p>
         <p>
-            <label for="email">E-mail</label><br>
+            <label for="email">Email</label><br>
             <input name="email" id="email" required>
         <p id="emailError"></p>
         <p>
-            <label for="phoneNum">Phone number</label><br>
+            <label for="phoneNum">Telefonszám</label><br>
             <input name="phoneNum" id="phoneNum" required>
         </p>
         <p>
-            <label for="zipCode">Zip code</label><br>
+            <label for="zipCode">Irányítószám</label><br>
             <input name="zipCode" id="zipCode" required>
         </p>
         <p>
-            <label for="city">City</label><br>
+            <label for="city">Település</label><br>
             <input name="city" id="city" required>
         </p>
         <p>
-            <label for="address">Address</label><br>
+            <label for="address">Cím</label><br>
             <input name="address" id="address" required>
         </p>
-        <br>
-        <h4>Billing address</h4>
+        <div class="well well-sm">
+            <strong>Számlázási cím</strong>
+        </div>
         <p>
-            <input type="checkbox" title="sameAsAbove" name="sameAsAbove" value="same"> Same as above.<br>
+            <input type="checkbox" id="sameAddress" title="sameAsAbove" name="sameAsAbove" value="same"> Megegyezik a fentiekkel.<br>
         </p>
-        <p>
-            <label for="billingZipCode">Zip code</label><br>
-            <input name="billingZipCode" id="billingZipCode">
-        </p>
-        <p>
-            <label for="billingCity">City</label><br>
-            <input name="billingCity" id="billingCity">
-        </p>
-        <p>
-            <label for="billingAddress">Address</label><br>
-            <input name="billingAddress" id="billingAddress">
-        </p>
-        <button type="submit" id="submit">Next</button>
+        <div id="billingAddressDiv">
+            <p>
+                <label for="billingZipCode">Irányítószám</label><br>
+                <input name="billingZipCode" id="billingZipCode">
+            </p>
+            <p>
+                <label for="billingCity">Település</label><br>
+                <input name="billingCity" id="billingCity">
+            </p>
+            <p>
+                <label for="billingAddress">Cím</label><br>
+                <input name="billingAddress" id="billingAddress">
+            </p>
+        </div>
+        <button type="submit" id="submit">Tovább</button>
     </form>
 
 </div>
