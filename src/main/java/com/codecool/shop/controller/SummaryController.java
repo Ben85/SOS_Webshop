@@ -29,10 +29,13 @@ public class SummaryController extends AbstractController {
 
         ShoppingCart shoppingCart = getShoppingCart(req);
         Customer customer = getCustomer(req);
-
-        context.setVariable("shoppingCart", shoppingCart.getItemList());
-        context.setVariable("customer", customer);
-        engine.process("checkout/summary.html", context, resp.getWriter());
+        if (customer == null) {
+            resp.sendRedirect("/");
+        } else {
+            context.setVariable("shoppingCart", shoppingCart.getItemList());
+            context.setVariable("customer", customer);
+            engine.process("checkout/summary.html", context, resp.getWriter());
+        }
 
     }
 
