@@ -34,6 +34,15 @@ public class SummaryController extends AbstractController {
         context.setVariable("customer", customer);
         engine.process("checkout/summary.html", context, resp.getWriter());
 
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String paymentMethod = req.getParameter("payment");
+        if (paymentMethod.equals("payAtDelivery")) {
+            resp.sendRedirect("/pay-at-delivery");
+        } else if (paymentMethod.equals("paypal")) {
+            resp.sendRedirect("/");
+        }
     }
 }
