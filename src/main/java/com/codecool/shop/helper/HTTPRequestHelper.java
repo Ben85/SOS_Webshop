@@ -1,5 +1,6 @@
 package com.codecool.shop.helper;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -19,10 +20,10 @@ public class HTTPRequestHelper {
         return singletonInstance;
     }
 
-    private HttpURLConnection createHTTPConnection(URL targetURL, String method, HashMap<String, String> requestProperties)
+    private HttpsURLConnection createHTTPConnection(URL targetURL, String method, HashMap<String, String> requestProperties)
         throws IOException
     {
-        HttpURLConnection connection = (HttpURLConnection) targetURL.openConnection();
+        HttpsURLConnection connection = (HttpsURLConnection) targetURL.openConnection();
         connection.setRequestMethod(method);
 
         for (Map.Entry<String, String> property : requestProperties.entrySet()) {
@@ -42,7 +43,8 @@ public class HTTPRequestHelper {
         throws IOException
     {
         DataOutputStream writer = new DataOutputStream(requestStream);
-        writer.writeBytes(requestBody);
+        writer.write(requestBody.getBytes("UTF-8"));
+        writer.flush();
         writer.close();
     }
 
@@ -74,12 +76,12 @@ public class HTTPRequestHelper {
         if (requestProperties == null) {
             requestProperties = new HashMap<String, String>() {{
                 put("Content-Type", "application/x-www-form-urlencoded");
-                put("Content-Length", Integer.toString(requestBody.getBytes().length));
                 put("Content-Language", "en-US");
             }};
         }
+        requestProperties.put("Content-Length", Integer.toString(requestBody.getBytes().length));
 
-        HttpURLConnection connection = createHTTPConnection(url, method, requestProperties);
+        HttpsURLConnection connection = createHTTPConnection(url, method, requestProperties);
 
         sendRequest(connection.getOutputStream(), requestBody);
 
