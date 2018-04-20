@@ -330,24 +330,28 @@
 
 
 <div class="container">
+<!--
 
-    <!-- Slide 2 -->
 
     <div class="wrap-slick2">
-        <div class="slick2">
+        <div class="slick2 arrow-slick2 prev-slick2 slick-arrow">
+            <i class="fa  fa-angle-left" aria-hidden="true"></i>
+            <div class="slick2 slick-initialized slick-slider">
+                <div class="slick-list draggable">
+                    <div class="slick-track" style="opacity: 1; width: 5814px; transform: translate3d(-1938px, 0px, 0px);" >
+            <th:block th:each="cat,iterStat : ${categories}">
+                <th:block th:each="prod,iterStat: ${products.getBy(cat)}">
+            <div class="item-slick2 p-l-15 p-r-15 slick-slide slick-current slick-active" tabindex="0" style="width: 323px" data-slick-index="1" aria-hidden="false">
 
-            <div class="item-slick2 p-l-15 p-r-15">
 
-        <!-- Block2 -->
-                <th:block th:each="cat,iterStat : ${categories}">
-    <th:block th:each="prod,iterStat: ${products.getBy(cat)}">
+
         <div class="block2">
             <div class="block2-img wrap-pic-w of-hidden pos-relative">
                 <img th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="IMG-PRODUCT">
 
                 <div class="block2-overlay trans-0-4">
                     <div class="block2-btn-addcart w-size1 trans-0-4">
-                        <!-- Button -->
+
                         <a href="/"><button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4 btn btn-success btn-add-to-cart flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" th:id="${prod.getId()}">
                             Kosárba vele
                         </button></a>
@@ -366,12 +370,15 @@
 								</span>
             </div>
         </div>
-    </th:block>
-                </th:block>
-    </div>
-        </div>
-    </div>
 
+    </div>
+                </th:block>
+            </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
     <div id="category well well-sm" th:each="cat,iterStat : ${categories}">
         <strong th:text="${cat.name}">Category Title</strong>
 
