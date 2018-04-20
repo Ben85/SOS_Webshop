@@ -21,6 +21,6 @@ public class PayAtDeliveryController extends AbstractController {
 
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        engine.process("checkout/payAtDelivery.html", context, resp.getWriter());
+        renderTemplate("checkout/payAtDelivery.html", req, resp, context);
     }
 }

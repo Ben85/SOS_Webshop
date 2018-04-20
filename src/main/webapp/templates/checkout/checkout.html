@@ -26,6 +26,10 @@
 
     <script src="static/js/checkout.js" defer></script>
 
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script src="static/js/payment.js" defer></script>
+
+
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
@@ -85,7 +89,7 @@
                 <input name="billingAddress" id="billingAddress">
             </p>
         </div>
-        <button type="submit" id="submit">Tovább</button>
+        <div id="paypal-button"></div>
     </form>
 
 </div>

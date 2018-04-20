@@ -27,17 +27,12 @@ public class ProductController extends AbstractController {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
-//        Map params = new HashMap<>();
-//        params.put("category", productCategoryDataStore.find(1));
-//        params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-//        context.setVariables(params);
         context.setVariable("recipient", "World");
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore);
-        engine.process("product/index.html", context, resp.getWriter());
+
+        renderTemplate("product/index.html", req, resp, context);
     }
 
 }
