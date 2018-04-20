@@ -22,8 +22,6 @@ public class SummaryController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        initializeShoppingCart(req);
-
         WebContext context = new WebContext(req, resp, req.getServletContext());
         ShoppingCart shoppingCart = getShoppingCart(req);
         Customer customer = getCustomer(req);

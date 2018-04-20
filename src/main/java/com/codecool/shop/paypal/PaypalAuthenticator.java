@@ -30,11 +30,11 @@ public class PaypalAuthenticator {
             encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
         }
 
-        AuthenticationCredentials(String clientId, String secretKey) {
+        public AuthenticationCredentials(String clientId, String secretKey) {
             setEncodedCredentials(clientId, secretKey);
         }
 
-        AuthenticationCredentials(File keyFile) {
+        public AuthenticationCredentials(File keyFile) {
             try (Scanner scanner = new Scanner(keyFile)) {
                 setEncodedCredentials(scanner.nextLine(), scanner.nextLine());
             }
@@ -49,7 +49,6 @@ public class PaypalAuthenticator {
 
     public String generateAccessToken() throws IOException {
         String authorizationValue = "Basic " + authenticationCredentials.getEncodedCredentials();
-
 
         String response = HTTPRequestHelper.getInstance().executePost(
             PAYPAL_API_OAUTH2_URL,
