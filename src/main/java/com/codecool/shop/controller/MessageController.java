@@ -15,8 +15,8 @@ public class MessageController extends AbstractController {
 
     private static final String[] MESSAGES = new String[] {
         "Hiba történt a tranzakció lebonyolítása során.",
-        "Tranzakció megszakítva.",
-        "Tranzakció sikeresen megtörtént.",
+        "A tranzakció megszakítva.",
+        "A tranzakció sikeresen megtörtént.",
         "Adjon valamit a kosárhoz, mielőtt folytatná a vásárlási folyamatot."
     };
 

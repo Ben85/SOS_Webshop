@@ -103,12 +103,12 @@ public class CreatePaymentController extends AbstractController {
         String id = "ERROR";
         try {
             id = payment.processPayment(authenticator);
+
+            JSONObject jsonResponse = new JSONObject();
+            jsonResponse.put("id", id);
+            resp.setContentType("application/json");
+
+            renderJSON(jsonResponse, resp);
         } catch (IOException ignore) {}
-
-        JSONObject jsonResponse = new JSONObject();
-        jsonResponse.put("id", id);
-        resp.setContentType("application/json");
-
-        renderJSON(jsonResponse, resp);
     }
 }

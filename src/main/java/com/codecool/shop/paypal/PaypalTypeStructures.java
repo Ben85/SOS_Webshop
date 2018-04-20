@@ -157,7 +157,10 @@ public class PaypalTypeStructures {
 
             for (Item item : itemList) {
                 try {
-                    totalTaxValue += Float.parseFloat(item.getProperty("tax"));
+                    int quantity = Integer.parseInt(item.getProperty("quantity"));
+                    float value = Float.parseFloat(item.getProperty("tax"));
+
+                    totalTaxValue += value * quantity;
                 } catch (NoSuchFieldException ignore) {}
             }
 
@@ -169,7 +172,10 @@ public class PaypalTypeStructures {
 
             for (Item item : itemList) {
                 try {
-                    totalItemValue += Float.parseFloat(item.getProperty("price"));
+                    int quantity = Integer.parseInt(item.getProperty("quantity"));
+                    float value = Float.parseFloat(item.getProperty("price"));
+
+                    totalItemValue += value * quantity;
                 } catch (NoSuchFieldException ignore) {}
             }
 
