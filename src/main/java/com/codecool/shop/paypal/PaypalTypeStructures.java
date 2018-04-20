@@ -256,7 +256,7 @@ public class PaypalTypeStructures {
     }
 
     public static class PaypalPayment extends BaseStructureType {
-        private static final String PAYPAL_API_PAYMENT_URL = "https://api.sandbox.paypal.com/v1/payments/payment";
+        private static final String PAYPAL_API_CREATE_PAYMENT_URL = "https://api.sandbox.paypal.com/v1/payments/payment";
 
         private String intent;
         private String experienceProfileId;
@@ -279,11 +279,10 @@ public class PaypalTypeStructures {
             throws IOException
         {
             String requestBody = this.toJSON().toJSONString();
-
             String authorizationValue = "Bearer " + authenticator.generateAccessToken();
 
             String response = HTTPRequestHelper.getInstance().executePost(
-                PAYPAL_API_PAYMENT_URL,
+                PAYPAL_API_CREATE_PAYMENT_URL,
                 requestBody,
                 new HashMap<String, String>() {{
                     put("Accept","application/json");
@@ -315,5 +314,59 @@ public class PaypalTypeStructures {
             this.payer = payer;
             this.transactions = transactions;
         }
+    }
+
+    public static class PaypalPaymentExecutor extends BaseStructureType {
+        private static final String PAYPAL_API_EXECUTE_PAYMENT_URL = "https://api.sandbox.paypal.com/v1/payments/payment/%s/execute/";
+
+        private String payerId;
+        private String paymentId;
+
+        private String getFormattedUrl() {
+            return String.format(PAYPAL_API_EXECUTE_PAYMENT_URL, paymentId);
+        }
+
+        @Override
+        public JSONAware toJSON() {
+            return new JSONObject() {{
+                put("payer_id", payerId);
+            }};
+        }
+
+        public void executePayment(PaypalAuthenticator authenticator)
+            throws IOException
+        {
+            String requestBody = this.toJSON().toJSONString();
+            String authorizationValue = "Bearer " + authenticator.generateAccessToken();
+
+            String response = HTTPRequestHelper.getInstance().executePost(
+                getFormattedUrl(),
+                requestBody,
+                new HashMap<String, String>() {{
+                    put("Accept","application/json");
+                    put("Accept-Language", "en_US");
+                    put("Content-Type","application/json; charset=utf-8");
+                    put("Authorization", authorizationValue);
+                }}
+            );
+
+            try {
+                JSONObject jsonResponse = (JSONObject) new JSONParser().parse(response);
+
+                if (jsonResponse.get("state") == "approved") {
+                    throw new IOException("Invalid Paypal api response state");
+                }
+            }
+            catch (ParseException ignore) {
+                throw new IOException();
+            }
+        }
+
+        public PaypalPaymentExecutor(String payerId, String paymentId) {
+            this.payerId = payerId;
+            this.paymentId = paymentId;
+        }
+
+
     }
 }

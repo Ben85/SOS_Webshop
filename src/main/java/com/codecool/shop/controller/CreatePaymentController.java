@@ -36,8 +36,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @WebServlet(urlPatterns = {"paypal/create-payment"})
 public class CreatePaymentController extends AbstractController {
-    private static final String PAYPAL_RETURN_URL = "https://example.com";
-    private static final String PAYPAL_CANCEL_URL = "https://example.com";
+    private static final String PAYPAL_RETURN_URL = "http://localhost:8080/message?message-id=2";
+    private static final String PAYPAL_CANCEL_URL = "http://localhost:8080/message?message-id=0";
 
     private PaypalTypeStructures.ItemList convertShoppingCartToItemList(ShoppingCart shoppingCart) {
         return new PaypalTypeStructures.ItemList(new LinkedList<PaypalTypeStructures.Item>() {{
@@ -66,7 +66,7 @@ public class CreatePaymentController extends AbstractController {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         File keyFile = new File(Initializer.servletContext.getRealPath("/") + "/data/paypal-login.key");
 
         PaypalAuthenticator.AuthenticationCredentials authenticationCredentials
@@ -106,11 +106,9 @@ public class CreatePaymentController extends AbstractController {
         } catch (IOException ignore) {}
 
         JSONObject jsonResponse = new JSONObject();
-        resp.setContentType("application/json");
         jsonResponse.put("id", id);
+        resp.setContentType("application/json");
 
-        PrintWriter out = resp.getWriter();
-        out.print(jsonResponse.toJSONString());
-        out.flush();
+        renderJSON(jsonResponse, resp);
     }
 }

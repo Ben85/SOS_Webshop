@@ -10,7 +10,7 @@ const Initializers = {
             env: 'sandbox',
             commit: true,
             style: {
-                color: 'gold',
+                color: 'blue',
                 size: 'small'
             },
 
@@ -24,23 +24,21 @@ const Initializers = {
                 return paypal.request.post(EXECUTE_PAYMENT_URL, {
                     paymentId: data.paymentID,
                     payerId:   data.payerID
-                }).then(function() {
-
-                });
+                }).then(() => {
+                    window.location.href = "/message?message-id=2"
+                })
             },
 
             onCancel: function (data, actions) {
-                /*
-                 * Buyer cancelled the payment
-                 */
+                window.location.href = "/message?message-id=1"
             },
 
             onError: function (err) {
-                /*
-                 * An error occurred during the transaction
-                 */
+                window.location.href = "/message?message-id=0"
             }
         }, '#paypal-button');
     }
 };
+
+Initializers.initalizePaypal();
 

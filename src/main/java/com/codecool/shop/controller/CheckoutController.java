@@ -39,6 +39,10 @@ public class CheckoutController extends AbstractController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
+        if (getShoppingCart(req).getItemList().isEmpty()) {
+            resp.sendRedirect("/message?message-id=3");
+        }
+
         renderTemplate("checkout/checkout.html", req, resp, context);
     }
 }
