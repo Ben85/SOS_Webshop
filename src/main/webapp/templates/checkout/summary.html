@@ -25,6 +25,8 @@
             crossorigin="anonymous"></script>
 
     <script src="static/js/shoppingCart.js" defer></script>
+    <script src="static/js/payment.js" defer></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
@@ -116,14 +118,9 @@
             </div>
         </div>
         <div>
-            <form action="/summary" method="POST">
-                <label for="payment">Fizetési mód: </label>
-                <select name="payment" id="payment">
-                    <option value="payAtDelivery">Utánvét</option>
-                    <option value="paypal">Paypal</option>
-                </select>
-                <button type="submit">Rendben</button>
-            </form>
+            <h4>Fizetési mód kiválasztása</h4>
+            <a href="/pay-at-delivery"><button>Utánvét</button></a><br><br>
+            <div id="paypal-button"></div>
         </div>
     </div>
     <div th:replace="footer.html :: copy"></div>
