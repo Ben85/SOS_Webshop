@@ -17,16 +17,18 @@ dom = {
                 let modalBody = document.getElementById("product-to-cart");
                 modalBody.innerHTML = "";
 
+                let imageDiv = document.createElement("div");
+                imageDiv.setAttribute("class", "col-md-4");
                 let image = document.createElement("img");
                 image.setAttribute("class", "group list-group-image");
                 image.setAttribute("src", "/static/img/product_" + productId + ".jpg");
-                modalBody.appendChild(image);
+                imageDiv.appendChild(image);
+                modalBody.appendChild(imageDiv);
 
                 let infoDiv = document.createElement("div");
-                infoDiv.setAttribute("class", "caption");
+                infoDiv.setAttribute("class", "caption col-md-4 ml-auto");
 
                 let prodNameTag = document.createElement("h4");
-                //productName.setAttribute("class", "group inner list-group-item-heading");
                 prodNameTag.innerHTML = productName;
                 infoDiv.appendChild(prodNameTag);
 
