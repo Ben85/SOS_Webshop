@@ -30,6 +30,22 @@ public class Item extends BaseTypes.BaseStructureType {
     }
 
     public Item(
+        String quantity,
+        String name,
+        String price,
+        String currency,
+        String description,
+        String tax
+    ) {
+        this.quantity = quantity;
+        this.name = name;
+        this.price = price;
+        this.currency = currency;
+        this.description = description;
+        this.tax = tax;
+    }
+
+    public Item(
         int quantity,
         String name,
         float price,
@@ -37,11 +53,13 @@ public class Item extends BaseTypes.BaseStructureType {
         String description,
         float tax
     ) {
-        this.quantity = String.valueOf(quantity);
-        this.name = name;
-        this.price = String.valueOf(price);
-        this.currency = currency;
-        this.description = description;
-        this.tax = String.valueOf(tax);
+        this(
+            String.valueOf(quantity),
+            name,
+            String.valueOf(price),
+            currency,
+            description,
+            String.valueOf(tax)
+        );
     }
 }
