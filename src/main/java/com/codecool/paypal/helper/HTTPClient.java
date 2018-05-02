@@ -1,14 +1,12 @@
 package com.codecool.paypal.helper;
 
-import com.codecool.shop.helper.HTTPRequestHelper;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-class HTTPClient {
+public class HTTPClient {
     private HTTPClient() {}
 
     private static HTTPClient singletonInstance = new HTTPClient();
