@@ -11,7 +11,7 @@ public class Transaction extends BaseTypes.BaseStructureType {
     private String description;
     private String invoiceNumber;
     private String customMessage;
-    private ItemList itemList;
+    private ItemList items;
     private TransactionAmount transactionAmount;
 
     @Override
@@ -19,7 +19,7 @@ public class Transaction extends BaseTypes.BaseStructureType {
         return JSONVerifier.verifyObject(new JSONObject() {{
             put("amount", transactionAmount.toJSON());
             put("item_list", JSONVerifier.verifyObject(new JSONObject() {{
-                put("items", itemList.toJSON());
+                put("items", items.toJSON());
             }}));
             put("description", description);
             put("invoice_number", invoiceNumber);
@@ -34,7 +34,7 @@ public class Transaction extends BaseTypes.BaseStructureType {
         String invoiceNumber,
         String customMessage
     ) {
-        itemList = items;
+        this.items = items;
         this.transactionAmount = transactionAmount;
         this.description = description;
         this.invoiceNumber = invoiceNumber;
