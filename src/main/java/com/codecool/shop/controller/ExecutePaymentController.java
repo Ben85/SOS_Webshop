@@ -1,8 +1,6 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.Initializer;
-import com.codecool.shop.paypal.PaypalAuthenticator;
-import com.codecool.shop.paypal.PaypalTypeStructures;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
