@@ -13,6 +13,11 @@ public abstract class DatabaseConnection {
     }
 
     void executeQuery(String query, String[] parameters) {
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
