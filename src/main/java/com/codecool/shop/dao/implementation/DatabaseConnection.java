@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import java.sql.* ;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class DatabaseConnection {
@@ -10,13 +11,15 @@ public abstract class DatabaseConnection {
     private static final String USERNAME = System.getenv("DB_USERNAME");
     private static final String PASSWORD = System.getenv("DB_PASSWORD");
 
+    private static final String ID_STRING = "id";
+
     private static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
     }
 
 
-    HashMap<String, Object> executeQuery(String query, String[] parameters) {
-        HashMap<String, Object> result = null;
+    int executeQuery(String query, String[] parameters) {
+        int id = -1; //returns -1 when no ID return is needed
         try {
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
@@ -32,11 +35,33 @@ public abstract class DatabaseConnection {
                 }
             }
             ResultSet resultSet = preparedStatement.executeQuery();
-            result = new HashMap<String, Object>();
             while(resultSet.next()) {
-                for(String parameter : parameters) {
-                    result.put(parameter, resultSet.getObject(parameter));
+                id = resultSet.getInt(ID_STRING);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    ArrayList<HashMap<String, Object>> executeSelect(String query, String[] columnNames) {
+        ArrayList<HashMap<String, Object>> result = null;
+        HashMap<String, Object> line;
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                line = new HashMap<String, Object>();
+                for(String column : columnNames) {
+                    line.put(column, resultSet.getObject(column));
                 }
+                result.add(line);
             }
         } catch (SQLException e) {
             e.printStackTrace();
