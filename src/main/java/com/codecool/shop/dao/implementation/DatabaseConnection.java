@@ -1,16 +1,15 @@
 package com.codecool.shop.dao.implementation;
 
-import java.sql.* ;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class DatabaseConnection {
+
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
     private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/shopcool";
-
     private static final String USERNAME = System.getenv("DB_USERNAME");
     private static final String PASSWORD = System.getenv("DB_PASSWORD");
-
     private static final String ID_STRING = "id";
 
     private static Connection getConnection() throws SQLException {
@@ -45,7 +44,7 @@ public abstract class DatabaseConnection {
     }
 
     ArrayList<HashMap<String, Object>> executeSelect(String query, String[] columnNames) {
-        ArrayList<HashMap<String, Object>> result = null;
+        ArrayList<HashMap<String, Object>> result = new ArrayList<>();
         HashMap<String, Object> line;
         try {
             Class.forName(JDBC_DRIVER);
@@ -68,5 +67,6 @@ public abstract class DatabaseConnection {
         }
         return result;
     }
+
 }
 
