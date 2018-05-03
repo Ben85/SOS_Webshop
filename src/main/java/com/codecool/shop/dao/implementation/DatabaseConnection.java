@@ -1,5 +1,7 @@
 package com.codecool.shop.dao.implementation;
+
 import java.sql.* ;
+import java.util.HashMap;
 
 public abstract class DatabaseConnection {
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
@@ -12,7 +14,8 @@ public abstract class DatabaseConnection {
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
     }
 
-    void executeQuery(String query, String[] parameters) {
+    HashMap<String, Object> executeQuery(String query, String[] parameters) {
+        HashMap<String, Object> result = null;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
@@ -22,10 +25,17 @@ public abstract class DatabaseConnection {
                     preparedStatement.setString(parameterIndex, parameters[i]);
                 }
             }
-            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            result = new HashMap<String, Object>();
+            while(resultSet.next()) {
+                for(String parameter : parameters) {
+                    result.put(parameter, resultSet.getObject(parameter));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 }
 
