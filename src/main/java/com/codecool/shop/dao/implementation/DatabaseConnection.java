@@ -14,8 +14,14 @@ public abstract class DatabaseConnection {
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
     }
 
+
     HashMap<String, Object> executeQuery(String query, String[] parameters) {
         HashMap<String, Object> result = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
