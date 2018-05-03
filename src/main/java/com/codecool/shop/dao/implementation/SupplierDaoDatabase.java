@@ -39,7 +39,13 @@ public class SupplierDaoDatabase extends DatabaseConnection implements SupplierD
 
     @Override
     public void remove(int id) {
+        String[] parameters = {Integer.toString(id)};
+        delete(parameters);
+    }
 
+    private void delete(String[] parameters) {
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?;";
+        executeQuery(query, parameters);
     }
 
     @Override
