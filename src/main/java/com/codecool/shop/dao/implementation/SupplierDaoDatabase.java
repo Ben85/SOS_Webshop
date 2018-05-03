@@ -25,11 +25,16 @@ public class SupplierDaoDatabase extends DatabaseConnection implements SupplierD
 
     @Override
     public Supplier find(int id) {
-        return null;
+        HashMap<String, Object> supplierData = select(id);
+        String name = (String) supplierData.get("name");
+        String description = (String) supplierData.get("description");
+        return new Supplier(name, description);
     }
 
     private HashMap<String, Object> select(int id) {
-        return null;
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE id = " + id + ";";
+        String[] columnNames = {"id", "name", "description"};
+        return executeSelect(query, columnNames);
     }
 
     @Override
