@@ -44,7 +44,7 @@ public abstract class DatabaseConnection {
     }
 
     ArrayList<HashMap<String, Object>> executeSelect(String query, String[] columnNames) {
-        ArrayList<HashMap<String, Object>> result = null;
+        ArrayList<HashMap<String, Object>> result = new ArrayList<>();
         HashMap<String, Object> line;
         try {
             Class.forName(JDBC_DRIVER);
