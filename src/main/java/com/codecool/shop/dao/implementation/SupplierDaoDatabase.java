@@ -3,12 +3,14 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class SupplierDaoDatabase extends DatabaseConnection implements SupplierDao {
 
     private final String TABLE_NAME = "suppliers";
+    private final String[] COLUMN_NAMES = {"id", "name", "description"};
 
     @Override
     public void add(Supplier supplier) {
@@ -32,9 +34,9 @@ public class SupplierDaoDatabase extends DatabaseConnection implements SupplierD
     }
 
     private HashMap<String, Object> select(int id) {
+        final int singleResultIndex = 0;
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE id = " + id + ";";
-        String[] columnNames = {"id", "name", "description"};
-        return executeSelect(query, columnNames);
+        return executeSelect(query, COLUMN_NAMES).get(singleResultIndex);
     }
 
     @Override
@@ -50,7 +52,19 @@ public class SupplierDaoDatabase extends DatabaseConnection implements SupplierD
 
     @Override
     public List<Supplier> getAll() {
-        return null;
+        ArrayList<Supplier> suppliers = new ArrayList<>();
+        ArrayList<HashMap<String, Object>> records = selectAll();
+        for (HashMap<String, Object> record : records) {
+            String name = (String) record.get("name");
+            String description = (String) record.get("description");
+            suppliers.add(new Supplier(name, description));
+        }
+        return suppliers;
+    }
+
+    private ArrayList<HashMap<String, Object>> selectAll() {
+        String query = "SELECT * FROM " + TABLE_NAME + ";";
+        return executeSelect(query, COLUMN_NAMES);
     }
 
 }
