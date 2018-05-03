@@ -10,7 +10,7 @@ public class Customer {
     private String lastName;
     private String hashedPassword;
     private String email;
-    private String phoneNum;
+    private int phoneNum;
     private String zip;
     private String city;
     private String address;
@@ -28,7 +28,7 @@ public class Customer {
         userData = (HashMap<String, String>) userInput.clone();
     }
 
-    public Customer(String firstName, String lastName, String hashedPassword, String email, String phoneNum, String bZip, String zip, String city, String bCity, String address, String bAddress, String username, String isSameAddress) {
+    public Customer(String firstName, String lastName, String hashedPassword, String email, int phoneNum, String bZip, String zip, String city, String bCity, String address, String bAddress, String username, String isSameAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.hashedPassword = hashedPassword;
@@ -44,7 +44,7 @@ public class Customer {
         this.isSameAddress = isSameAddress;
     }
 
-    public Customer(String firstName, String lastName, String hashedPassword, String email, String phoneNum, String zip, String city, String address, String username) {
+    public Customer(String firstName, String lastName, String hashedPassword, String email, int phoneNum, String zip, String city, String address, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.hashedPassword = hashedPassword;
@@ -80,11 +80,11 @@ public class Customer {
         this.email = email;
     }
 
-    public String getPhoneNum() {
+    public int getPhoneNum() {
         return phoneNum;
     }
 
-    public void setPhoneNum(String phoneNum) {
+    public void setPhoneNum(int phoneNum) {
         this.phoneNum = phoneNum;
     }
 
