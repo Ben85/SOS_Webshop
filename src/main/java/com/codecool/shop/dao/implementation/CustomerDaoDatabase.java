@@ -3,10 +3,7 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.CustomerDao;
 import com.codecool.shop.model.Customer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class CustomerDaoDatabase extends DatabaseConnection implements CustomerDao {
 
@@ -29,48 +26,60 @@ public class CustomerDaoDatabase extends DatabaseConnection implements CustomerD
 
     @Override
     public void add(Customer customer) {
-        String firstName = customer.getFirstName();
-        String lastName = customer.getLastName();
-        String hashedPassword = customer.getHashedPassword();
-        String email = customer.getEmail();
-        String phoneNumber = String.valueOf(customer.getPhoneNum());
-        String zipCode = customer.getZip();
-        String city = customer.getCity();
-        String address = customer.getAddress();
-        String billingZipCode = customer.getbZip();
-        String billingCity = customer.getbCity();
-        String billingAddress = customer.getbAddress();
-        String username = customer.getUsername();
-        String[] parameters = {firstName, lastName, hashedPassword, email, phoneNumber, zipCode, city, address, billingZipCode, billingCity, billingAddress, username};
+        String[] parameters = {
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getHashedPassword(),
+                customer.getEmail(),
+                String.valueOf(customer.getPhoneNum()),
+                customer.getZipCode(),
+                customer.getCity(),
+                customer.getAddress(),
+                customer.getBillingZipCode(),
+                customer.getBillingCity(),
+                customer.getBillingAddress(),
+                customer.getUsername()
+        };
         insertInto(parameters);
     }
 
     private void insertInto(String[] parameters) {
         StringBuilder sb = new StringBuilder();
-        int itemBeforeLastIndex = COLUMN_NAMES.length - 2;
-        int lastItemIndex = COLUMN_NAMES.length - 1;
-        for (int i = 1; i <= itemBeforeLastIndex; i++) {
+        int indexOfItemBeforeLast = COLUMN_NAMES.length - 2;
+        int indexOfLastItem = COLUMN_NAMES.length - 1;
+        for (int i = 1; i <= indexOfItemBeforeLast; i++) {
             sb.append(COLUMN_NAMES[i]);
             sb.append(", ");
         }
-        sb.append(COLUMN_NAMES[lastItemIndex]);
+        sb.append(COLUMN_NAMES[indexOfLastItem]);
         String query = "INSERT INTO " + TABLE_NAME + " (" + sb.toString() + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         executeQuery(query, parameters);
     }
 
-//    @Override
-//    public Supplier find(int id) {
-//        HashMap<String, Object> supplierData = select(id);
-//        String name = (String) supplierData.get("name");
-//        String description = (String) supplierData.get("description");
-//        return new Supplier(name, description);
-//    }
-//
-//    private HashMap<String, Object> select(int id) {
-//        final int singleResultIndex = 0;
-//        String query = "SELECT * FROM " + TABLE_NAME + " WHERE id = " + id + ";";
-//        return executeSelect(query, COLUMN_NAMES).get(singleResultIndex);
-//    }
+    @Override
+    public Customer find(int id) {
+        HashMap<String, Object> customerData = select(id);
+        return new Customer(
+                (String) customerData.get("first_name"),
+                (String) customerData.get("last_name"),
+                (String) customerData.get("hashed_password"),
+                (String) customerData.get("email"),
+                (Integer) customerData.get("phone_number"),
+                (String) customerData.get("zip_code"),
+                (String) customerData.get("city"),
+                (String) customerData.get("address"),
+                (String) customerData.get("billing_zip_code"),
+                (String) customerData.get("billing_city"),
+                (String) customerData.get("billing_address"),
+                (String) customerData.get("username")
+        );
+    }
+
+    private HashMap<String, Object> select(int id) {
+        final int singleResultIndex = 0;
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE id = " + id + ";";
+        return executeSelect(query, COLUMN_NAMES).get(singleResultIndex);
+    }
 //
 //    @Override
 //    public void remove(int id) {
