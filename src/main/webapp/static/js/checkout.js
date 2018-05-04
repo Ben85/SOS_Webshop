@@ -35,9 +35,11 @@ dom = {
     },
 
     validateName() {
-        let fieldId = "name";
+        let lastNameFieldId = "lastName";
+        let firstNameFieldId = "firstName";
         let errorId = "nameError";
-        validateText(fieldId, errorId);
+        validateText(lastNameFieldId, errorId);
+        validateText(firstNameFieldId, errorId)
     },
 
     validateCity() {
