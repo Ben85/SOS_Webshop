@@ -80,18 +80,18 @@ public class CustomerDaoDatabase extends DatabaseConnection implements CustomerD
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE id = " + id + ";";
         return executeSelect(query, COLUMN_NAMES).get(singleResultIndex);
     }
-//
-//    @Override
-//    public void remove(int id) {
-//        String[] parameters = {Integer.toString(id)};
-//        delete(parameters);
-//    }
-//
-//    private void delete(String[] parameters) {
-//        String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?;";
-//        executeQuery(query, parameters);
-//    }
-//
+
+    @Override
+    public void remove(int id) {
+        String[] parameters = {Integer.toString(id)};
+        delete(parameters);
+    }
+
+    private void delete(String[] parameters) {
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?;";
+        executeQuery(query, parameters);
+    }
+
 //    @Override
 //    public List<Supplier> getAll() {
 //        ArrayList<Supplier> suppliers = new ArrayList<>();
