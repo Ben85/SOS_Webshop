@@ -1,6 +1,5 @@
 package com.codecool.shop.config;
 
-import com.codecool.shop.controller.CreatePaymentController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 @WebListener
 public class Initializer implements ServletContextListener {

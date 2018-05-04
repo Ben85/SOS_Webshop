@@ -9,12 +9,23 @@ import java.util.List;
 
 public class SupplierDaoDatabase extends DatabaseConnection implements SupplierDao {
 
+    private static SupplierDaoDatabase instance = null;
     private final String TABLE_NAME = "suppliers";
     private final String[] COLUMN_NAMES = {
             "id",
             "name",
             "description"
     };
+
+    private SupplierDaoDatabase() {
+    }
+
+    public static SupplierDaoDatabase getInstance() {
+        if (instance == null) {
+            instance = new SupplierDaoDatabase();
+        }
+        return instance;
+    }
 
     @Override
     public void add(Supplier supplier) {

@@ -9,8 +9,19 @@ import java.util.List;
 
 public class ProductCategoryDaoDatabase extends DatabaseConnection implements ProductCategoryDao{
 
+    private static ProductCategoryDaoDatabase instance = null;
     private final String TABLE_NAME = "product_categories";
     private final String[] COLUMN_NAMES = {"id", "name", "department", "description"};
+
+    private ProductCategoryDaoDatabase() {
+    }
+
+    public static ProductCategoryDaoDatabase getInstance() {
+        if (instance == null) {
+            instance = new ProductCategoryDaoDatabase();
+        }
+        return instance;
+    }
 
     @Override
     public void add(ProductCategory category) {
