@@ -3,7 +3,9 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.CustomerDao;
 import com.codecool.shop.model.Customer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CustomerDaoDatabase extends DatabaseConnection implements CustomerDao {
 
@@ -92,21 +94,33 @@ public class CustomerDaoDatabase extends DatabaseConnection implements CustomerD
         executeQuery(query, parameters);
     }
 
-//    @Override
-//    public List<Supplier> getAll() {
-//        ArrayList<Supplier> suppliers = new ArrayList<>();
-//        ArrayList<HashMap<String, Object>> records = selectAll();
-//        for (HashMap<String, Object> record : records) {
-//            String name = (String) record.get("name");
-//            String description = (String) record.get("description");
-//            suppliers.add(new Supplier(name, description));
-//        }
-//        return suppliers;
-//    }
-//
-//    private ArrayList<HashMap<String, Object>> selectAll() {
-//        String query = "SELECT * FROM " + TABLE_NAME + ";";
-//        return executeSelect(query, COLUMN_NAMES);
-//    }
+    @Override
+    public List<Customer> getAll() {
+        ArrayList<Customer> customers = new ArrayList<>();
+        ArrayList<HashMap<String, Object>> records = selectAll();
+        for (HashMap<String, Object> record : records) {
+            customers.add(new Customer(
+                            (String) record.get("first_name"),
+                            (String) record.get("last_name"),
+                            (String) record.get("hashed_password"),
+                            (String) record.get("email"),
+                            (Integer) record.get("phone_number"),
+                            (String) record.get("zip_code"),
+                            (String) record.get("city"),
+                            (String) record.get("address"),
+                            (String) record.get("billing_zip_code"),
+                            (String) record.get("billing_city"),
+                            (String) record.get("billing_address"),
+                            (String) record.get("username")
+                    )
+            );
+        }
+        return customers;
+    }
+
+    private ArrayList<HashMap<String, Object>> selectAll() {
+        String query = "SELECT * FROM " + TABLE_NAME + ";";
+        return executeSelect(query, COLUMN_NAMES);
+    }
 
 }
