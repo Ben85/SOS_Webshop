@@ -18,15 +18,18 @@ public class CheckoutController extends AbstractController {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         Customer customer = new Customer(
-                req.getParameter("userName"),
+                req.getParameter("firstName"),
+                req.getParameter("lastName"),
+                req.getParameter("password"), //TODO: hashedPassword
                 req.getParameter("email"),
-                req.getParameter("phoneNum"),
-                req.getParameter("billingZipCode"),
+                Integer.parseInt(req.getParameter("phoneNum")),
                 req.getParameter("zipCode"),
                 req.getParameter("city"),
-                req.getParameter("billingCity"),
                 req.getParameter("address"),
+                req.getParameter("billingZipCode"),
+                req.getParameter("billingCity"),
                 req.getParameter("billingAddress"),
+                req.getParameter("username"),
                 req.getParameter("sameAsAbove"));
 
         HttpSession session = req.getSession();
