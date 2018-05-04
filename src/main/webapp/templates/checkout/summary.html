@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <th>Irányítószám</th>
-                    <td th:text="${customer.getZip()}"></td>
+                    <td th:text="${customer.getZipCode()}"></td>
                 </tr>
             </table>
 
@@ -79,15 +79,15 @@
                     <table>
                         <tr>
                             <th>Település</th>
-                            <td th:text="${customer.getbCity()}"></td>
+                            <td th:text="${customer.getBillingCity()}"></td>
                         </tr>
                         <tr>
                             <th>Cím</th>
-                            <td th:text="${customer.getbAddress()}"></td>
+                            <td th:text="${customer.getBillingAddress()}"></td>
                         </tr>
                         <tr>
                             <th>Irányítószám</th>
-                            <td th:text="${customer.getbZip()}"></td>
+                            <td th:text="${customer.getBillingZipCode()}"></td>
                         </tr>
                     </table>
                 </div>

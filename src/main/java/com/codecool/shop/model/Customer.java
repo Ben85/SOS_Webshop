@@ -11,46 +11,100 @@ public class Customer {
     private String hashedPassword;
     private String email;
     private int phoneNum;
-    private String zip;
+    private String zipCode;
     private String city;
     private String address;
-    private String bZip;
-    private String bCity;
-    private String bAddress;
+    private String billingZipCode;
+    private String billingCity;
+    private String billingAddress;
     private String username;
     private String isSameAddress;
-    HashMap<String, String> userData = new HashMap<>();
+    private HashMap<String, String> userData = new HashMap<>();
 
-    public Customer(){ this.id = ++count; }
+    public Customer() {
+        this.id = ++count;
+    }
 
-    public Customer(HashMap<String, String> userInput){
+    public Customer(HashMap<String, String> userInput) {
         this.id = ++count;
         userData = (HashMap<String, String>) userInput.clone();
     }
 
-    public Customer(String firstName, String lastName, String hashedPassword, String email, int phoneNum, String bZip, String zip, String city, String bCity, String address, String bAddress, String username, String isSameAddress) {
+    public Customer(
+            String firstName,
+            String lastName,
+            String hashedPassword,
+            String email,
+            int phoneNum,
+            String zipCode,
+            String city,
+            String address,
+            String billingZipCode,
+            String billingCity,
+            String billingAddress,
+            String username,
+            String isSameAddress
+    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.hashedPassword = hashedPassword;
         this.email = email;
         this.phoneNum = phoneNum;
-        this.zip = zip;
+        this.zipCode = zipCode;
         this.city = city;
         this.address = address;
-        this.bZip = bZip;
-        this.bCity = bCity;
-        this.bAddress = bAddress;
+        this.billingZipCode = billingZipCode;
+        this.billingCity = billingCity;
+        this.billingAddress = billingAddress;
         this.username = username;
         this.isSameAddress = isSameAddress;
     }
 
-    public Customer(String firstName, String lastName, String hashedPassword, String email, int phoneNum, String zip, String city, String address, String username) {
+    public Customer(
+            String firstName,
+            String lastName,
+            String hashedPassword,
+            String email,
+            int phoneNum,
+            String zipCode,
+            String city,
+            String address,
+            String billingZipCode,
+            String billingCity,
+            String billingAddress,
+            String username
+    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.hashedPassword = hashedPassword;
         this.email = email;
         this.phoneNum = phoneNum;
-        this.zip = zip;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.address = address;
+        this.billingZipCode = billingZipCode;
+        this.billingCity = billingCity;
+        this.billingAddress = billingAddress;
+        this.username = username;
+    }
+
+    public Customer(
+            String firstName,
+            String lastName,
+            String hashedPassword,
+            String email,
+            int phoneNum,
+            String zipCode,
+            String city,
+            String address,
+            String username
+    ) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hashedPassword = hashedPassword;
+        this.email = email;
+        this.phoneNum = phoneNum;
+        this.zipCode = zipCode;
         this.city = city;
         this.address = address;
         this.username = username;
@@ -76,64 +130,32 @@ public class Customer {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getPhoneNum() {
         return phoneNum;
     }
 
-    public void setPhoneNum(int phoneNum) {
-        this.phoneNum = phoneNum;
+    public String getBillingZipCode() {
+        return billingZipCode;
     }
 
-    public String getbZip() {
-        return bZip;
-    }
-
-    public void setbZip(String bZip) {
-        this.bZip = bZip;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
+    public String getZipCode() {
+        return zipCode;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getbCity() {
-        return bCity;
-    }
-
-    public void setbCity(String bCity) {
-        this.bCity = bCity;
+    public String getBillingCity() {
+        return billingCity;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getbAddress() {
-        return bAddress;
-    }
-
-    public void setbAddress(String bAddress) {
-        this.bAddress = bAddress;
+    public String getBillingAddress() {
+        return billingAddress;
     }
 
     public String getUsername() {
@@ -150,11 +172,10 @@ public class Customer {
 
 
     public int getId() {
-
         return id;
     }
 
-    public boolean isSameAddress(){
-        return this.address.equals(this.bAddress) && this.city.equals(this.bCity) && this.zip.equals(this.bZip);
+    public boolean isSameAddress() {
+        return this.address.equals(this.billingAddress) && this.city.equals(this.billingCity) && this.zipCode.equals(this.billingZipCode);
     }
 }
