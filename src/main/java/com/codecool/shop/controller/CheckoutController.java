@@ -1,8 +1,6 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Customer;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
@@ -16,7 +14,7 @@ import java.io.IOException;
 public class CheckoutController extends AbstractController {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Customer customer = new Customer(
                 req.getParameter("firstName"),
                 req.getParameter("lastName"),
@@ -30,7 +28,8 @@ public class CheckoutController extends AbstractController {
                 req.getParameter("billingCity"),
                 req.getParameter("billingAddress"),
                 req.getParameter("username"),
-                req.getParameter("sameAsAbove"));
+                req.getParameter("sameAsAbove")
+        );
 
         HttpSession session = req.getSession();
         session.setAttribute("customer", customer);
@@ -39,7 +38,7 @@ public class CheckoutController extends AbstractController {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         if (getShoppingCart(req).getItemList().isEmpty()) {

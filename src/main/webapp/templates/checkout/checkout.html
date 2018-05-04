@@ -41,7 +41,7 @@
 
 <div class="container">
 
-    <form action="/checkout" method="POST">
+    <form id="checkoutForm" action="/checkout" method="POST">
         <div class="well well-sm">
             <strong>Személyes adatok</strong>
         </div>
@@ -49,11 +49,12 @@
             <label for="lastName">Vezetéknév</label><br>
             <input name="lastName" id="lastName" required>
         </p>
+        <p id="lastNameError"></p>
         <p>
             <label for="firstName">Keresztnév</label><br>
             <input name="firstName" id="firstName" required>
         </p>
-        <p id="nameError"></p>
+        <p id="firstNameError"></p>
         <p>
             <label for="username">Felhasználónév</label><br>
             <input name="username" id="username" required>
@@ -66,6 +67,7 @@
             <label for="passwordConfirmation">Jelszó megerősítése</label><br>
             <input type="password" name="passwordConfirmation" id="passwordConfirmation" required>
         </p>
+        <p id="passwordError"></p>
         <p>
             <label for="email">Email</label><br>
             <input name="email" id="email" required>
@@ -74,6 +76,7 @@
             <label for="phoneNum">Telefonszám</label><br>
             +36-<input name="phoneNum" id="phoneNum" placeholder="000000000" required>
         </p>
+        <p id="phoneNumError"></p>
         <div class="well well-sm">
             <strong>Számlázási cím</strong>
         </div>
@@ -113,7 +116,7 @@
             </p>
         </div>
         <div id="paypal-button"></div>
-        <button><a id="submit">Tovább</a></button>
+        <button id="submitBtn">Tovább</button>
     </form>
 
 </div>
