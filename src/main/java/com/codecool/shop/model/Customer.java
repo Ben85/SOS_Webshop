@@ -19,16 +19,16 @@ public class Customer {
     private String billingAddress;
     private String username;
     private String isSameAddress;
-    private HashMap<String, String> userData = new HashMap<>();
-
-    public Customer() {
-        this.id = ++count;
-    }
-
-    public Customer(HashMap<String, String> userInput) {
-        this.id = ++count;
-        userData = (HashMap<String, String>) userInput.clone();
-    }
+//    private HashMap<String, String> userData = new HashMap<>();
+//
+//    public Customer() {
+//        this.id = ++count;
+//    }
+//
+//    public Customer(HashMap<String, String> userInput) {
+//        this.id = ++count;
+//        userData = (HashMap<String, String>) userInput.clone();
+//    }
 
     public Customer(
             String firstName,
@@ -50,14 +50,20 @@ public class Customer {
         this.hashedPassword = hashedPassword;
         this.email = email;
         this.phoneNum = phoneNum;
-        this.zipCode = zipCode;
-        this.city = city;
-        this.address = address;
         this.billingZipCode = billingZipCode;
         this.billingCity = billingCity;
         this.billingAddress = billingAddress;
         this.username = username;
         this.isSameAddress = isSameAddress;
+        if (getIsSameAddress()) {
+            this.zipCode = billingZipCode;
+            this.city = billingCity;
+            this.address = billingAddress;
+        } else {
+            this.zipCode = zipCode;
+            this.city = city;
+            this.address = address;
+        }
     }
 
     public Customer(
@@ -86,28 +92,11 @@ public class Customer {
         this.billingCity = billingCity;
         this.billingAddress = billingAddress;
         this.username = username;
-    }
-
-    public Customer(
-            String firstName,
-            String lastName,
-            String hashedPassword,
-            String email,
-            int phoneNum,
-            String zipCode,
-            String city,
-            String address,
-            String username
-    ) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.hashedPassword = hashedPassword;
-        this.email = email;
-        this.phoneNum = phoneNum;
-        this.zipCode = zipCode;
-        this.city = city;
-        this.address = address;
-        this.username = username;
+        if (isSameAddress()) {
+            this.isSameAddress = "true";
+        } else {
+            this.isSameAddress = "false";
+        }
     }
 
     public boolean getIsSameAddress() {
@@ -161,15 +150,6 @@ public class Customer {
     public String getUsername() {
         return username;
     }
-
-    public HashMap<String, String> getUserData() {
-        return userData;
-    }
-
-    public void setUserData(HashMap<String, String> userData) {
-        this.userData = userData;
-    }
-
 
     public int getId() {
         return id;
