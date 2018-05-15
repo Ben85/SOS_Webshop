@@ -11,6 +11,7 @@ import java.util.List;
 
 public class ProductDaoDatabase extends DatabaseConnection implements ProductDao{
 
+    private static ProductDaoDatabase instance = null;
     private final String TABLE_NAME = "products";
     private final String SELECT_QUERY = "SELECT * FROM";
     private final String[] TABLE_COLUMNS = {"name",
@@ -23,6 +24,16 @@ public class ProductDaoDatabase extends DatabaseConnection implements ProductDao
                                             "category_id",
                                             "supplier_id",
                                             "image"};
+
+    private ProductDaoDatabase() {
+    }
+
+    public static ProductDaoDatabase getInstance() {
+        if (instance == null) {
+            instance = new ProductDaoDatabase();
+        }
+        return instance;
+    }
 
     @Override
     public void add(Product product) {

@@ -78,3 +78,8 @@ th {
 #pay-by-card-body {
     margin: auto;
 }
+
+#success {
+    width: 10%;
+    height: 10%;
+}

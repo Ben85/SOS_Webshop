@@ -1,8 +1,6 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Customer;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
@@ -16,18 +14,22 @@ import java.io.IOException;
 public class CheckoutController extends AbstractController {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Customer customer = new Customer(
-                req.getParameter("userName"),
+                req.getParameter("firstName"),
+                req.getParameter("lastName"),
+                req.getParameter("password"), //TODO: hashedPassword
                 req.getParameter("email"),
-                req.getParameter("phoneNum"),
-                req.getParameter("billingZipCode"),
+                Integer.parseInt(req.getParameter("phoneNum")),
                 req.getParameter("zipCode"),
                 req.getParameter("city"),
-                req.getParameter("billingCity"),
                 req.getParameter("address"),
+                req.getParameter("billingZipCode"),
+                req.getParameter("billingCity"),
                 req.getParameter("billingAddress"),
-                req.getParameter("sameAsAbove"));
+                req.getParameter("username"),
+                req.getParameter("sameAsAbove")
+        );
 
         HttpSession session = req.getSession();
         session.setAttribute("customer", customer);
@@ -36,7 +38,7 @@ public class CheckoutController extends AbstractController {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         if (getShoppingCart(req).getItemList().isEmpty()) {
