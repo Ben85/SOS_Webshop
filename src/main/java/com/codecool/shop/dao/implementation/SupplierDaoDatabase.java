@@ -29,15 +29,12 @@ public class SupplierDaoDatabase extends DatabaseConnection implements SupplierD
 
     @Override
     public void add(Supplier supplier) {
-        String name = supplier.getName();
-        String description = supplier.getDescription();
-        String[] parameters = {name, description};
-        insertInto(parameters);
+        insertInto(supplier);
     }
 
-    private void insertInto(String[] parameters) {
-        String query = "INSERT INTO " + TABLE_NAME + " (name, description) VALUES (?, ?);";
-        executeQuery(query, parameters);
+    private void insertInto(Supplier supplier) {
+        String query = "INSERT INTO " + TABLE_NAME + " (name, description) VALUES (?, ?) RETURNING id;";
+        int newId = executeQuery(query, supplier);
     }
 
     @Override

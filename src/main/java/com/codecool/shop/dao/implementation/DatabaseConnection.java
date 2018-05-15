@@ -1,5 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.model.Supplier;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +36,31 @@ public abstract class DatabaseConnection {
                 }
             }
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
+                id = resultSet.getInt(ID_STRING);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    int executeQuery(String query, Supplier supplier) {
+        int id = -1; //returns -1 when no ID return is needed
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            String name = supplier.getName();
+            String description = supplier.getDescription();
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, description);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
                 id = resultSet.getInt(ID_STRING);
             }
         } catch (SQLException e) {
@@ -55,9 +81,9 @@ public abstract class DatabaseConnection {
              PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 line = new HashMap<String, Object>();
-                for(String column : columnNames) {
+                for (String column : columnNames) {
                     line.put(column, resultSet.getObject(column));
                 }
                 result.add(line);
