@@ -23,9 +23,9 @@ class ProductDaoDatabaseTest {
 
     @Test
     public void addToDatabase() {
-        ProductDaoDatabase productDaoDatabase = new ProductDaoDatabase();
+        ProductDaoDatabase productDaoDatabase = ProductDaoDatabase.getInstance();
         productDaoDatabase.add(product);
 
-        //assertEquals(2, productDaoDatabase.getAll().size());
+        assertEquals(2, productDaoDatabase.getAll().size());
     }
 }

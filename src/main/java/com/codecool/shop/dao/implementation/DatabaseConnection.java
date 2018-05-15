@@ -1,7 +1,12 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.HashMap;
 
 public abstract class DatabaseConnection {
@@ -33,6 +38,44 @@ public abstract class DatabaseConnection {
                     preparedStatement.setString(parameterIndex, parameters[i]);
                 }
             }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                id = resultSet.getInt(ID_STRING);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    int executeQuery(String mainQuery, Product product) {
+        int id = -1; //returns -1 when no ID return is needed
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(mainQuery)) {
+
+            String name = product.getName();
+            long defaultPrice = product.getDefaultPrice();
+            Currency defaultCurrency = product.getDefaultCurrency();
+            String description = product.getDescription();
+            String size = product.getSize();
+            String color = product.getColor();
+            ProductCategory category = product.getProductCategory();
+            Supplier supplier = product.getSupplier();
+
+            preparedStatement.setString(1, name);
+            preparedStatement.setLong(2, defaultPrice);
+            preparedStatement.setObject(3, defaultCurrency);
+            preparedStatement.setString(4, description);
+            preparedStatement.setString(5, size);
+            preparedStatement.setString(6, color);
+            preparedStatement.setObject(7, category);
+            preparedStatement.setObject(8, supplier);
+
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 id = resultSet.getInt(ID_STRING);
