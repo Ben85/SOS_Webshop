@@ -1,8 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -123,7 +121,7 @@ public abstract class DatabaseConnection {
         ) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                line = new HashMap<String, Object>();
+                line = new HashMap<>();
                 for (String column : columnNames) {
                     line.put(column, resultSet.getObject(column));
                 }
@@ -133,6 +131,44 @@ public abstract class DatabaseConnection {
             e.printStackTrace();
         }
         return result;
+    }
+
+    void executeDelete(String query, Object objectToDelete) {
+        int id = getId(objectToDelete);
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getId(Object objectToDelete) {
+        int id = 0;
+        if (objectToDelete instanceof Product) {
+            Product product = (Product) objectToDelete;
+            id = product.getId();
+        } else if (objectToDelete instanceof ProductCategory) {
+            ProductCategory productCategory = (ProductCategory) objectToDelete;
+            id = productCategory.getId();
+        } else if (objectToDelete instanceof Supplier) {
+            Supplier supplier = (Supplier) objectToDelete;
+            id = supplier.getId();
+        } else if (objectToDelete instanceof ShoppingCart) {
+            ShoppingCart shoppingCart = (ShoppingCart) objectToDelete;
+            id = shoppingCart.getId();
+        } else if (objectToDelete instanceof Customer) {
+            Customer customer = (Customer) objectToDelete;
+            id = customer.getId();
+        }
+        return id;
     }
 
 }
