@@ -31,14 +31,15 @@ public class ProductDaoDatabase extends DatabaseConnection implements ProductDao
 
     private void insertInto(Product product) {
         String[] emptyList = {};
-        String query = "INSERT INTO " + TABLE_NAME + " (name, defaultprice, currency, description, size, color, category_id, supplier_id"
+        String query = "INSERT INTO " + TABLE_NAME + " (name, defaultprice, currency, description, size, color, category_id, supplier_id)"
                         + " VALUES (" + product.getName() + ", " +
                                         product.getDefaultPrice() + ", " +
+                                        product.getDefaultCurrency() + ", " +
                                         product.getDescription() + ", " +
                                         product.getSize() + ", " +
                                         product.getColor() + ", " +
-                                        product.getProductCategory() + ", " +
-                                        product.getSupplier() + ");";
+                                        product.getProductCategory().getId() + ", " +
+                                        product.getSupplier().getId() + ");";
         executeQuery(query, emptyList);
     }
 
