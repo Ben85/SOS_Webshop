@@ -22,4 +22,17 @@ class SupplierDaoDatabaseTest {
 
         assertEquals(sizeBefore + 1, supplierDaoDatabase.getAll().size());
     }
+
+    @Test
+    public void deleteFromDatabase() {
+        SupplierDaoDatabase supplierDaoDatabase = SupplierDaoDatabase.getInstance();
+        Supplier supplierToDelete = new Supplier("delete this", "delete this");
+        supplierDaoDatabase.add(supplierToDelete);
+        int id = supplierToDelete.getId();
+
+        int sizeBeforeDelete = supplierDaoDatabase.getAll().size();
+        supplierDaoDatabase.remove(id);
+
+        assertEquals(sizeBeforeDelete - 1, supplierDaoDatabase.getAll().size());
+    }
 }
