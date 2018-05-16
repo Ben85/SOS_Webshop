@@ -1,51 +1,33 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.Initializer;
-import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.helper.HTTPRequestHelper;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ShoppingCart;
 import com.codecool.shop.paypal.PaypalAuthenticator;
 import com.codecool.shop.paypal.PaypalTypeStructures;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
-
-import javax.security.sasl.AuthenticationException;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import com.codecool.paypal.*;
 
 @WebServlet(urlPatterns = {"paypal/create-payment"})
 public class CreatePaymentController extends AbstractController {
     private static final String PAYPAL_RETURN_URL = "http://localhost:8080/message?message-id=2";
     private static final String PAYPAL_CANCEL_URL = "http://localhost:8080/message?message-id=0";
 
-    private PaypalTypeStructures.ItemList convertShoppingCartToItemList(ShoppingCart shoppingCart) {
-        return new PaypalTypeStructures.ItemList(new LinkedList<PaypalTypeStructures.Item>() {{
+    private ItemList convertShoppingCartToItemList(ShoppingCart shoppingCart) {
+        return new ItemList(new LinkedList<Item>() {{
             for (Map.Entry<Product, Integer> cartEntry: shoppingCart.getItemList().entrySet()) {
                 Product product = cartEntry.getKey();
                 Integer quantity = cartEntry.getValue();
 
-                add(new PaypalTypeStructures.Item(
+                add(new Item(
                     quantity,
                     product.getName(),
                     product.getDefaultPrice().floatValue(),
@@ -69,40 +51,44 @@ public class CreatePaymentController extends AbstractController {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         File keyFile = new File(Initializer.servletContext.getRealPath("/") + "/data/paypal-login.key");
 
-        PaypalAuthenticator.AuthenticationCredentials authenticationCredentials
-            = new PaypalAuthenticator.AuthenticationCredentials(keyFile);
+        AuthenticationCredentials authenticationCredentials = new AuthenticationCredentials(keyFile);
+        Authenticator authenticator = new Authenticator(authenticationCredentials);
 
-        PaypalAuthenticator authenticator = new PaypalAuthenticator(authenticationCredentials);
-        PaypalTypeStructures.ItemList itemList = convertShoppingCartToItemList(this.getShoppingCart(req));
+        ItemList items = convertShoppingCartToItemList(this.getShoppingCart(req));
 
-        PaypalTypeStructures.PaypalPayment payment = new PaypalTypeStructures.PaypalPayment(
+        TransactionList transactions = new TransactionList(
+            new LinkedList<Transaction>() {{
+                add(new Transaction(
+                    items,
+                    new TransactionAmount(
+                        items.getTotalItemValue(),
+                        "HUF",
+                        items.getTotalTaxValue(),
+                        0.0f,
+                        0.0f
+                    ),
+                    "Ferivel kapcsolatos ideiglenes placeholder leiras helye...",
+                    generateInvoiceNumber(),
+                    "Codecool 2017"
+                ));
+            }}
+        );
+
+        Payment payment = new Payment(
             "sale",
             null,
-            new PaypalTypeStructures.RedirectURLs(
+            new RedirectURLs(
                 PAYPAL_RETURN_URL,
                 PAYPAL_CANCEL_URL
             ),
-            new PaypalTypeStructures.Payer(
+            new Payer(
                 "paypal"
             ),
-            new PaypalTypeStructures.Transactions(
-                itemList,
-                new PaypalTypeStructures.TransactionAmount(
-                    itemList.getTotalItemValue(),
-                    "HUF",
-                    itemList.getTotalTaxValue(),
-                    0.0f,
-                    0.0f
-                ),
-                "Ferivel kapcsolatos ideiglenes placeholder leiras helye...",
-                generateInvoiceNumber(),
-                "Codecool 2017"
-            )
+            transactions
         );
 
-        String id = "ERROR";
         try {
-            id = payment.processPayment(authenticator);
+            String id = payment.processPayment(authenticator);
 
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("id", id);
