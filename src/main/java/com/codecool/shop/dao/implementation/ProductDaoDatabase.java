@@ -42,8 +42,8 @@ public class ProductDaoDatabase extends DatabaseConnection implements ProductDao
 
     private void insertInto(Product product) {
         String query = "INSERT INTO " + TABLE_NAME + " (name, defaultprice, currency, description, size, color, category_id, supplier_id)"
-                        + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
-        executeQuery(query, product);
+                        + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;";
+        int newProductId = executeQuery(query, product);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ProductDaoDatabase extends DatabaseConnection implements ProductDao
 
     private ArrayList<Product> select(String criteria) {
         ArrayList<HashMap<String, Object>> result;
-        ArrayList<Product> products = null;
+        ArrayList<Product> products = new ArrayList<>();
         String query = SELECT_QUERY + " " + TABLE_NAME + criteria + ";";
         result = executeSelect(query, TABLE_COLUMNS);
         for(HashMap<String, Object> productInfo : result) {
@@ -64,14 +64,16 @@ public class ProductDaoDatabase extends DatabaseConnection implements ProductDao
     }
 
     private Product createProductObject(HashMap<String, Object> productData) {
+        ProductCategory category = ProductCategoryDaoDatabase.getInstance().find((Integer)productData.get("category_id"));
+        Supplier supplier = SupplierDaoDatabase.getInstance().find((Integer)productData.get("supplier_id"));
         return new Product((String)productData.get("name"),
-                                            (long) productData.get("defaultprice"),
-                                            (String) productData.get("currency"),
-                                            (String) productData.get("description"),
-                                            (ProductCategory) productData.get("category_id"),
-                                            (Supplier) productData.get("supplier_id"),
-                                            (String) productData.get("size"),
-                                            (String) productData.get("color"));
+                            Long.valueOf((Integer) productData.get("defaultprice")),
+                            (String) productData.get("currency"),
+                            (String) productData.get("description"),
+                            category,
+                            supplier,
+                            (String) productData.get("size"),
+                            (String) productData.get("color"));
     }
 
     @Override
