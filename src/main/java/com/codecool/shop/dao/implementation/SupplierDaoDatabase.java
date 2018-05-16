@@ -35,6 +35,7 @@ public class SupplierDaoDatabase extends DatabaseConnection implements SupplierD
     private void insertInto(Supplier supplier) {
         String query = "INSERT INTO " + TABLE_NAME + " (name, description) VALUES (?, ?) RETURNING id;";
         int newId = executeQuery(query, supplier);
+        supplier.setId(newId);
     }
 
     @Override
@@ -53,13 +54,13 @@ public class SupplierDaoDatabase extends DatabaseConnection implements SupplierD
 
     @Override
     public void remove(int id) {
-        String[] parameters = {Integer.toString(id)};
-        delete(parameters);
+        Supplier supplier = Supplier.getSupplierById(id);
+        delete(supplier);
     }
 
-    private void delete(String[] parameters) {
+    private void delete(Supplier supplier) {
         String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?;";
-        executeQuery(query, parameters);
+        executeDelete(query, supplier);
     }
 
     @Override

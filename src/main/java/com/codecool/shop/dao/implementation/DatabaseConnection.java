@@ -1,8 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -48,7 +46,7 @@ public abstract class DatabaseConnection {
         return id;
     }
 
-    int executeQuery(String query, Supplier supplier) {
+    int executeQuery(String query, Product product) {
         int id = -1; //returns -1 when no ID return is needed
         try {
             Class.forName(JDBC_DRIVER);
@@ -56,31 +54,7 @@ public abstract class DatabaseConnection {
             e.printStackTrace();
         }
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
-            String name = supplier.getName();
-            String description = supplier.getDescription();
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, description);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                id = resultSet.getInt(ID_STRING);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
-    int executeQuery(String mainQuery, Product product) {
-        int id = -1; //returns -1 when no ID return is needed
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try (Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(mainQuery)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             String name = product.getName();
             long defaultPrice = product.getDefaultPrice();
@@ -110,6 +84,83 @@ public abstract class DatabaseConnection {
         return id;
     }
 
+    int executeQuery(String query, ProductCategory category) {
+        int id = -1; //returns -1 if not successful
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setString(1, category.getName());
+            preparedStatement.setString(2, category.getDepartment());
+            preparedStatement.setString(3, category.getDescription());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                id = resultSet.getInt(ID_STRING);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    int executeQuery(String query, Supplier supplier) {
+        int id = -1; //returns -1 if not successful
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setString(1, supplier.getName());
+            preparedStatement.setString(2, supplier.getDescription());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                id = resultSet.getInt(ID_STRING);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    int executeQuery(String query, Customer customer) {
+        int id = -1; //returns -1 if not successful
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setString(1, customer.getFirstName());
+            preparedStatement.setString(2, customer.getLastName());
+            preparedStatement.setString(3, customer.getHashedPassword());
+            preparedStatement.setString(4, customer.getEmail());
+            preparedStatement.setInt(5, customer.getPhoneNum());
+            preparedStatement.setString(6, customer.getZipCode());
+            preparedStatement.setString(7, customer.getCity());
+            preparedStatement.setString(8, customer.getAddress());
+            preparedStatement.setString(9, customer.getBillingZipCode());
+            preparedStatement.setString(10, customer.getBillingCity());
+            preparedStatement.setString(11, customer.getBillingAddress());
+            preparedStatement.setString(12, customer.getUsername());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                id = resultSet.getInt(ID_STRING);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     ArrayList<HashMap<String, Object>> executeSelect(String query, String[] columnNames) {
         ArrayList<HashMap<String, Object>> result = new ArrayList<>();
         HashMap<String, Object> line;
@@ -123,7 +174,7 @@ public abstract class DatabaseConnection {
         ) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                line = new HashMap<String, Object>();
+                line = new HashMap<>();
                 for (String column : columnNames) {
                     line.put(column, resultSet.getObject(column));
                 }
@@ -133,6 +184,44 @@ public abstract class DatabaseConnection {
             e.printStackTrace();
         }
         return result;
+    }
+
+    void executeDelete(String query, Object objectToDelete) {
+        int id = getId(objectToDelete);
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getId(Object objectToDelete) {
+        int id = 0;
+        if (objectToDelete instanceof Product) {
+            Product product = (Product) objectToDelete;
+            id = product.getId();
+        } else if (objectToDelete instanceof ProductCategory) {
+            ProductCategory productCategory = (ProductCategory) objectToDelete;
+            id = productCategory.getId();
+        } else if (objectToDelete instanceof Supplier) {
+            Supplier supplier = (Supplier) objectToDelete;
+            id = supplier.getId();
+        } else if (objectToDelete instanceof ShoppingCart) {
+            ShoppingCart shoppingCart = (ShoppingCart) objectToDelete;
+            id = shoppingCart.getId();
+        } else if (objectToDelete instanceof Customer) {
+            Customer customer = (Customer) objectToDelete;
+            id = customer.getId();
+        }
+        return id;
     }
 
 }

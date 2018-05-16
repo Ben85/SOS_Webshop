@@ -4,13 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategory extends BaseModel {
+    private static List<ProductCategory> categories = new ArrayList<>();
     private String department;
     private List<Product> products;
 
     public ProductCategory(String name, String department, String description) {
         super(name);
         this.department = department;
+        this.description = description;
         this.products = new ArrayList<>();
+        categories.add(this);
+    }
+
+    public static ProductCategory getProductCategoryById(int id) {
+        for (ProductCategory category: categories) {
+            if (category.id == id) return category;
+        }
+        return null;
     }
 
     public String getDepartment() {
@@ -21,12 +31,12 @@ public class ProductCategory extends BaseModel {
         this.department = department;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
     public List<Product> getProducts() {
         return this.products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
     }
 
     public void addProduct(Product product) {
@@ -43,5 +53,10 @@ public class ProductCategory extends BaseModel {
                 this.name,
                 this.department,
                 this.description);
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 }

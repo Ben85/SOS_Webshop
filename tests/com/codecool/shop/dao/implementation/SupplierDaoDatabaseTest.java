@@ -7,19 +7,30 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SupplierDaoDatabaseTest {
-    private Supplier supplier;
+
+    private SupplierDaoDatabase supplierDaoDb;
 
     @BeforeEach
-    public void init() {
-        this.supplier = new Supplier("supplier name", "supplier description");
+    void setUp() {
+        supplierDaoDb = SupplierDaoDatabase.getInstance();
     }
 
     @Test
     public void addToDatabase() {
-        SupplierDaoDatabase supplierDaoDatabase = SupplierDaoDatabase.getInstance();
-        int sizeBefore = supplierDaoDatabase.getAll().size();
-        supplierDaoDatabase.add(supplier);
+        Supplier supplier = new Supplier("supplier name", "supplier description");
+        int sizeBefore = supplierDaoDb.getAll().size();
 
-        assertEquals(sizeBefore + 1, supplierDaoDatabase.getAll().size());
+        supplierDaoDb.add(supplier);
+        assertEquals(sizeBefore + 1, supplierDaoDb.getAll().size());
+    }
+
+    @Test
+    public void deleteFromDatabase() {
+        Supplier supplierToDelete = new Supplier("delete this", "delete this");
+        supplierDaoDb.add(supplierToDelete);
+        int sizeBeforeDelete = supplierDaoDb.getAll().size();
+
+        supplierDaoDb.remove(supplierToDelete.getId());
+        assertEquals(sizeBeforeDelete - 1, supplierDaoDb.getAll().size());
     }
 }

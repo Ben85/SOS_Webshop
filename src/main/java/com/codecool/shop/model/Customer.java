@@ -1,10 +1,12 @@
 package com.codecool.shop.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Customer {
 
-    private static int count = 0;
+    private static List<Customer> customers = new ArrayList<>();
     private int id;
     private String firstName;
     private String lastName;
@@ -64,6 +66,7 @@ public class Customer {
             this.city = city;
             this.address = address;
         }
+        customers.add(this);
     }
 
     public Customer(
@@ -97,6 +100,14 @@ public class Customer {
         } else {
             this.isSameAddress = "false";
         }
+        customers.add(this);
+    }
+
+    public static Customer getCustomerById(int id) {
+        for (Customer customer : customers) {
+            if (customer.id == id) return customer;
+        }
+        return null;
     }
 
     public boolean getIsSameAddress() {
@@ -157,5 +168,9 @@ public class Customer {
 
     public boolean isSameAddress() {
         return this.address.equals(this.billingAddress) && this.city.equals(this.billingCity) && this.zipCode.equals(this.billingZipCode);
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
