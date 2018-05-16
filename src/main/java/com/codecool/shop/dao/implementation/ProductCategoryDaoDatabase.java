@@ -46,8 +46,13 @@ public class ProductCategoryDaoDatabase extends DatabaseConnection implements Pr
 
     @Override
     public void remove(int id) {
-        String[] parameters = {Integer.toString(id)};
-        delete(parameters);
+        ProductCategory category = ProductCategory.getProductCategoryById(id);
+        delete(category);
+    }
+
+    private void delete(ProductCategory category) {
+        String queryString = "DELETE FROM " + TABLE_NAME + " WHERE id = ?;";
+        executeDelete(queryString, category);
     }
 
     @Override
@@ -67,11 +72,6 @@ public class ProductCategoryDaoDatabase extends DatabaseConnection implements Pr
         final int singleResultIndex = 0;
         String queryString = "SELECT * FROM " + TABLE_NAME + " WHERE id = " + id;
         return executeSelect(queryString, COLUMN_NAMES).get(singleResultIndex);
-    }
-
-    private void delete(String[] parameters) {
-        String queryString = "DELETE FROM " + TABLE_NAME + " WHERE id = ?;";
-        executeQuery(queryString, parameters);
     }
 
     private ArrayList<HashMap<String, Object>> selectAll() {
