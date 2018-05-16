@@ -44,4 +44,9 @@ public class ProductCategory extends BaseModel {
                 this.department,
                 this.description);
     }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
 }
