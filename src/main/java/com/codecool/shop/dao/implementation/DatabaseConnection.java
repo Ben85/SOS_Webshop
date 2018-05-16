@@ -101,7 +101,7 @@ public abstract class DatabaseConnection {
             preparedStatement.setObject(8, supplier);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 id = resultSet.getInt(ID_STRING);
             }
         } catch (SQLException e) {
