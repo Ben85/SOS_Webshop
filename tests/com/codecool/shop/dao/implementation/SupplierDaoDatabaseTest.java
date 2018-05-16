@@ -1,30 +1,36 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.model.Supplier;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SupplierDaoDatabaseTest {
 
+    private SupplierDaoDatabase supplierDaoDb;
+
+    @BeforeEach
+    void setUp() {
+        supplierDaoDb = SupplierDaoDatabase.getInstance();
+    }
+
     @Test
     public void addToDatabase() {
         Supplier supplier = new Supplier("supplier name", "supplier description");
-        SupplierDaoDatabase supplierDaoDatabase = SupplierDaoDatabase.getInstance();
-        int sizeBefore = supplierDaoDatabase.getAll().size();
+        int sizeBefore = supplierDaoDb.getAll().size();
 
-        supplierDaoDatabase.add(supplier);
-        assertEquals(sizeBefore + 1, supplierDaoDatabase.getAll().size());
+        supplierDaoDb.add(supplier);
+        assertEquals(sizeBefore + 1, supplierDaoDb.getAll().size());
     }
 
     @Test
     public void deleteFromDatabase() {
         Supplier supplierToDelete = new Supplier("delete this", "delete this");
-        SupplierDaoDatabase supplierDaoDatabase = SupplierDaoDatabase.getInstance();
-        supplierDaoDatabase.add(supplierToDelete);
-        int sizeBeforeDelete = supplierDaoDatabase.getAll().size();
+        supplierDaoDb.add(supplierToDelete);
+        int sizeBeforeDelete = supplierDaoDb.getAll().size();
 
-        supplierDaoDatabase.remove(supplierToDelete.getId());
-        assertEquals(sizeBeforeDelete - 1, supplierDaoDatabase.getAll().size());
+        supplierDaoDb.remove(supplierToDelete.getId());
+        assertEquals(sizeBeforeDelete - 1, supplierDaoDb.getAll().size());
     }
 }

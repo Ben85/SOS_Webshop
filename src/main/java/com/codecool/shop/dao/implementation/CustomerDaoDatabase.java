@@ -97,13 +97,13 @@ public class CustomerDaoDatabase extends DatabaseConnection implements CustomerD
 
     @Override
     public void remove(int id) {
-        String[] parameters = {Integer.toString(id)};
-        delete(parameters);
+        Customer customer = Customer.getCustomerById(id);
+        delete(customer);
     }
 
-    private void delete(String[] parameters) {
+    private void delete(Customer customer) {
         String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?;";
-        executeQuery(query, parameters);
+        executeDelete(query, customer);
     }
 
     @Override
