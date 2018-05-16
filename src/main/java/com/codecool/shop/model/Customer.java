@@ -158,4 +158,8 @@ public class Customer {
     public boolean isSameAddress() {
         return this.address.equals(this.billingAddress) && this.city.equals(this.billingCity) && this.zipCode.equals(this.billingZipCode);
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

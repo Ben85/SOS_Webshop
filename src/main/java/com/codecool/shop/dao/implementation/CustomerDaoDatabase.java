@@ -9,6 +9,7 @@ import java.util.List;
 
 public class CustomerDaoDatabase extends DatabaseConnection implements CustomerDao {
 
+    private static CustomerDaoDatabase instance = null;
     private final String TABLE_NAME = "customers";
     private final String[] COLUMN_NAMES = {
             "id",
@@ -26,6 +27,16 @@ public class CustomerDaoDatabase extends DatabaseConnection implements CustomerD
             "username"
     };
 
+    private CustomerDaoDatabase() {
+    }
+
+    public static CustomerDaoDatabase getInstance() {
+        if (instance == null) {
+            instance = new CustomerDaoDatabase();
+        }
+        return instance;
+    }
+
     @Override
     public void add(Customer customer) {
         String[] parameters = {
@@ -42,10 +53,10 @@ public class CustomerDaoDatabase extends DatabaseConnection implements CustomerD
                 customer.getBillingAddress(),
                 customer.getUsername()
         };
-        insertInto(parameters);
+        insertInto(customer);
     }
 
-    private void insertInto(String[] parameters) {
+    private void insertInto(Customer customer) {
         StringBuilder sb = new StringBuilder();
         int indexOfItemBeforeLast = COLUMN_NAMES.length - 2;
         int indexOfLastItem = COLUMN_NAMES.length - 1;
@@ -54,8 +65,9 @@ public class CustomerDaoDatabase extends DatabaseConnection implements CustomerD
             sb.append(", ");
         }
         sb.append(COLUMN_NAMES[indexOfLastItem]);
-        String query = "INSERT INTO " + TABLE_NAME + " (" + sb.toString() + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        executeQuery(query, parameters);
+        String query = "INSERT INTO " + TABLE_NAME + " (" + sb.toString() + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;";
+        int newId = executeQuery(query, customer);
+        customer.setId(newId);
     }
 
     @Override
