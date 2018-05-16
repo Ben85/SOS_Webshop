@@ -54,7 +54,7 @@ public class ProductDaoDatabase extends DatabaseConnection implements ProductDao
 
     private ArrayList<Product> select(String criteria) {
         ArrayList<HashMap<String, Object>> result;
-        ArrayList<Product> products = null;
+        ArrayList<Product> products = new ArrayList<>();
         String query = SELECT_QUERY + " " + TABLE_NAME + criteria + ";";
         result = executeSelect(query, TABLE_COLUMNS);
         for(HashMap<String, Object> productInfo : result) {

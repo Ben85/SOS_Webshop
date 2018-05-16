@@ -67,12 +67,12 @@ public abstract class DatabaseConnection {
 
             preparedStatement.setString(1, name);
             preparedStatement.setLong(2, defaultPrice);
-            preparedStatement.setObject(3, defaultCurrency);
+            preparedStatement.setString(3, defaultCurrency.toString());
             preparedStatement.setString(4, description);
             preparedStatement.setString(5, size);
             preparedStatement.setString(6, color);
-            preparedStatement.setObject(7, category);
-            preparedStatement.setObject(8, supplier);
+            preparedStatement.setInt(7, category.getId());
+            preparedStatement.setInt(8, supplier.getId());
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

@@ -27,6 +27,6 @@ class ProductDaoDatabaseTest {
         int sizeBefore = productDaoDatabase.getAll().size();
         productDaoDatabase.add(product);
 
-        assertEquals(sizeBefore, productDaoDatabase.getAll().size());
+        assertEquals(sizeBefore + 1, productDaoDatabase.getAll().size());
     }
 }
