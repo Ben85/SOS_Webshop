@@ -39,7 +39,7 @@
 
 <body>
 
-<div th:replace="header.html :: header"></div>
+<div class="header" th:replace="header.html :: header"></div>
 
 <div class="container">
 
@@ -47,8 +47,8 @@
         <strong th:text="${cat.name}">Category Title</strong>
         <div id="products" class="row">
 
-            <div class="item col-xs-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products.getBy(cat)}">
-                <div class="thumbnail">
+            <div class="item col-xs-12 col-md-6 col-lg-4 mb-4" th:each="prod,iterStat : ${products.getBy(cat)}">
+                <div class="h-100 thumbnail">
                     <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
                          th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                     <div class="caption">
@@ -85,13 +85,13 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-dark">
+            <div class="modal-header bg-light">
                 <h4 class="modal-title" id="addToCartLabel">Sikeres kosárba helyezés  <img id="success" src="/static/img/success-tick.png" alt="success"></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body bg-light text-dark">
+            <div class="modal-body bg-light text-light">
                 <div class="container-fluid">
                     <div class="row" id="product-to-cart"></div>
                 </div>
