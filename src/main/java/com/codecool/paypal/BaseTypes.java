@@ -1,8 +1,7 @@
 package com.codecool.paypal;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONAware;
-import org.json.simple.JSONObject;
+
 import java.lang.reflect.Field;
 
 class BaseTypes {
@@ -20,6 +19,15 @@ class BaseTypes {
             catch (IllegalAccessException ignore) {
                 return null;
             }
+        }
+
+        public void setProperty(String fieldName, Object newValue) throws NoSuchFieldException {
+            try {
+                Field field = this.getClass().getDeclaredField(fieldName);
+                field.setAccessible(true);
+                field.set(this, newValue.toString());
+            }
+            catch (IllegalAccessException ignore) {}
         }
 
         public abstract JSONAware toJSON();
