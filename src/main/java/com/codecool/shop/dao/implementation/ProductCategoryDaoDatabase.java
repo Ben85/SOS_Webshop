@@ -46,13 +46,12 @@ public class ProductCategoryDaoDatabase extends DatabaseConnection implements Pr
 
     @Override
     public void remove(int id) {
-        ProductCategory category = ProductCategory.getProductCategoryById(id);
-        delete(category);
+        delete(id);
     }
 
-    private void delete(ProductCategory category) {
+    private void delete(int id) {
         String queryString = "DELETE FROM " + TABLE_NAME + " WHERE id = ?;";
-        executeDelete(queryString, category);
+        executeDelete(queryString, id);
     }
 
     @Override
