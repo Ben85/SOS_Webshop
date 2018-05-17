@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.Initializer;
+import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ShoppingCart;
 import com.codecool.paypal.*;
@@ -30,12 +31,29 @@ public class CreatePaymentController extends AbstractController {
                     quantity,
                     product.getName(),
                     product.getDefaultPrice().floatValue(),
-                    product.getDefaultCurrency().toString(),
+                    Currencies.HUNGARIAN_FORINT,
                     product.getDescription(),
                     0.0f
                 ));
             }
         }});
+    }
+
+    private ShippingAddress getShippingAddressFromCustomer(Customer customer) {
+        if (customer != null) {
+            return new ShippingAddress(
+                customer.getLastName() + " " + customer.getFirstName(),
+                "+36" + Integer.toString(customer.getPhoneNum()),
+                customer.getAddress(),
+                null,
+                CountryCodes.HUNGARY,
+                customer.getZipCode(),
+                null,
+                customer.getCity()
+            );
+        }
+
+        return null;
     }
 
     private String generateInvoiceNumber() {
@@ -53,20 +71,22 @@ public class CreatePaymentController extends AbstractController {
         AuthenticationCredentials authenticationCredentials = new AuthenticationCredentials(keyFile);
         Authenticator authenticator = new Authenticator(authenticationCredentials);
 
-        ItemList items = convertShoppingCartToItemList(this.getShoppingCart(req));
+        ItemList items = convertShoppingCartToItemList(getShoppingCart(req));
+        ShippingAddress shippingAddress = getShippingAddressFromCustomer(getCustomer(req));
 
         TransactionList transactions = new TransactionList(
             new LinkedList<Transaction>() {{
                 add(new Transaction(
+                    shippingAddress,
                     items,
                     new TransactionAmount(
                         items.getTotalItemValue(),
-                        "HUF",
+                        Currencies.HUNGARIAN_FORINT,
                         items.getTotalTaxValue(),
                         0.0f,
                         0.0f
                     ),
-                    "Ferivel kapcsolatos ideiglenes placeholder leiras helye...",
+                    "Kosár tartalma:",
                     generateInvoiceNumber(),
                     "Codecool 2017"
                 ));
@@ -75,6 +95,7 @@ public class CreatePaymentController extends AbstractController {
 
         Payment payment = new Payment(
             "sale",
+            null,
             null,
             new RedirectURLs(
                 PAYPAL_RETURN_URL,

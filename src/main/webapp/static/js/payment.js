@@ -6,6 +6,10 @@ const Initializers = {
         const CREATE_PAYMENT_URL  = '/paypal/create-payment';
         const EXECUTE_PAYMENT_URL = '/paypal/execute-payment';
 
+        const SUCCESS_URL = "/message?message-id=2";
+        const CANCEL_URL = "/message?message-id=1";
+        const ERROR_URL = "/message?message-id=0";
+
         paypal.Button.render({
             env: 'sandbox',
             commit: true,
@@ -24,17 +28,17 @@ const Initializers = {
                 return paypal.request.post(EXECUTE_PAYMENT_URL, {
                     paymentId: data.paymentID,
                     payerId:   data.payerID
-                }).then(() => {
-                    window.location.href = "/message?message-id=2"
+                }).then((data) => {
+                    window.location.href = data.success ? SUCCESS_URL : ERROR_URL;
                 })
             },
 
             onCancel: function (data, actions) {
-                window.location.href = "/message?message-id=1"
+                window.location.href = CANCEL_URL;
             },
 
             onError: function (err) {
-                window.location.href = "/message?message-id=0"
+                window.location.href = ERROR_URL;
             }
         }, '#paypal-button');
     }

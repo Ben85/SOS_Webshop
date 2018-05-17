@@ -1,5 +1,6 @@
 package com.codecool.paypal;
 
+import com.codecool.paypal.basetypes.BaseStructure;
 import com.codecool.paypal.helper.JSONVerifier;
 import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
@@ -7,7 +8,7 @@ import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 
 @SuppressWarnings("unchecked")
-public class Item extends BaseTypes.BaseStructureType {
+public class Item extends BaseStructure {
     private String quantity;
     private String name;
     private String price;
@@ -49,7 +50,7 @@ public class Item extends BaseTypes.BaseStructureType {
         int quantity,
         String name,
         float price,
-        String currency,
+        Currencies currency,
         String description,
         float tax
     ) {
@@ -57,7 +58,7 @@ public class Item extends BaseTypes.BaseStructureType {
             String.valueOf(quantity),
             name,
             String.valueOf(price),
-            currency,
+            currency.toString(),
             description,
             String.valueOf(tax)
         );
