@@ -101,6 +101,7 @@ public class Initializer implements ServletContextListener {
                 (JSONObject currentObject) -> {
                     productDataStore.add(new Product(
                             (String) currentObject.get("name"),
+                            Math.toIntExact((Long) currentObject.get("id")),
                             ((Long) currentObject.get("defaultPrice")),
                             (String) currentObject.get("currencyString"),
                             (String) currentObject.get("description"),

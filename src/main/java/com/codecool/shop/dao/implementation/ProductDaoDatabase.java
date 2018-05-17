@@ -67,6 +67,7 @@ public class ProductDaoDatabase extends DatabaseConnection implements ProductDao
         ProductCategory category = ProductCategoryDaoDatabase.getInstance().find((Integer)productData.get("category_id"));
         Supplier supplier = SupplierDaoDatabase.getInstance().find((Integer)productData.get("supplier_id"));
         return new Product((String)productData.get("name"),
+                            (int) productData.get("id"),
                             Long.valueOf((Integer) productData.get("defaultprice")),
                             (String) productData.get("currency"),
                             (String) productData.get("description"),
