@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Rapanui",
+      "description": "Rapanui ruhák"
+    },
+    {
+      "id": 2,
+      "name": "Bam",
+      "description": "Bam ruhák"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Női",
+      "department": "Ruha",
+      "description": "Bambusz ruha"
+    },
+    {
+      "id": 2,
+      "name": "Férfi",
+      "department": "Ruha",
+      "description": "Bambusz ruha"
+    },
+    {
+      "id": 3,
+      "name": "Unisex",
+      "department": "Ruha",
+      "description": "Bambusz ruha"
+    }
+  ]
+}
