@@ -1,5 +1,6 @@
 package com.codecool.paypal;
 
+import com.codecool.paypal.basetypes.BaseStructure;
 import com.codecool.paypal.helper.HTTPClient;
 import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
@@ -10,20 +11,19 @@ import java.io.IOException;
 import java.util.HashMap;
 
 @SuppressWarnings("unchecked")
-public class PaymentExecutor extends BaseTypes.BaseStructureType {
+public class PaymentExecutor extends BaseStructure {
     private static final String PAYPAL_API_EXECUTE_PAYMENT_URL = "https://api.sandbox.paypal.com/v1/payments/payment/%s/execute/";
 
-    private String payerId;
-    private String paymentId;
+    private PayerData payerData;
 
     private String getFormattedUrl() {
-        return String.format(PAYPAL_API_EXECUTE_PAYMENT_URL, paymentId);
+        return String.format(PAYPAL_API_EXECUTE_PAYMENT_URL, payerData.getPaymentId());
     }
 
     @Override
     public JSONAware toJSON() {
         return new JSONObject() {{
-            put("payer_id", payerId);
+            put("payer_id", payerData.getPayerId());
         }};
     }
 
@@ -52,13 +52,11 @@ public class PaymentExecutor extends BaseTypes.BaseStructureType {
             }
         }
         catch (ParseException ignore) {
-            throw new IOException();
+            throw new IOException("JSON parse error during payment execution, invalid paypal api response");
         }
     }
 
-    public PaymentExecutor(String payerId, String paymentId) {
-        this.payerId = payerId;
-        this.paymentId = paymentId;
+    public PaymentExecutor(PayerData payerData) {
+        this.payerData = payerData;
     }
-
 }

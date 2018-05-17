@@ -1,12 +1,13 @@
 package com.codecool.paypal;
 
+import com.codecool.paypal.basetypes.BaseJSONType;
 import com.codecool.paypal.helper.JSONVerifier;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONAware;
 import java.util.LinkedList;
 
 @SuppressWarnings("unchecked")
-public class TransactionList implements BaseTypes.BaseJSONType {
+public class TransactionList implements BaseJSONType {
     private LinkedList<Transaction> transactionList;
 
     public LinkedList<Transaction> getItemList() {
