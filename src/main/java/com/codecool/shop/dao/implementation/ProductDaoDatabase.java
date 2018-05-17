@@ -43,7 +43,8 @@ public class ProductDaoDatabase extends DatabaseConnection implements ProductDao
     private void insertInto(Product product) {
         String query = "INSERT INTO " + TABLE_NAME + " (name, defaultprice, currency, description, size, color, category_id, supplier_id)"
                         + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;";
-        int newProductId = executeQuery(query, product);
+        int newId = executeQuery(query, product);
+        product.setId(newId);
     }
 
     @Override
@@ -84,8 +85,7 @@ public class ProductDaoDatabase extends DatabaseConnection implements ProductDao
 
     private void delete(int id) {
         String query = "DELETE FROM " + TABLE_NAME + " WHERE id = " + id + ";";
-        String[] nullList = null;
-        executeQuery(query, nullList);
+        executeDelete(query, id);
     }
 
     @Override

@@ -21,3 +21,5 @@ venv/
 hs_err_pid*
 
 *.key
+
+venv/

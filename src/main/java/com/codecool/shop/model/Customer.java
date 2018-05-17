@@ -103,13 +103,6 @@ public class Customer {
         customers.add(this);
     }
 
-    public static Customer getCustomerById(int id) {
-        for (Customer customer : customers) {
-            if (customer.id == id) return customer;
-        }
-        return null;
-    }
-
     public boolean getIsSameAddress() {
         return Boolean.valueOf(isSameAddress);
     }

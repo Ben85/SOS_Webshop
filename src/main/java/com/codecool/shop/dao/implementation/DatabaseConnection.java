@@ -19,34 +19,8 @@ public abstract class DatabaseConnection {
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
     }
 
-    int executeQuery(String query, String[] parameters) {
-        int id = -1; //returns -1 when no ID return is needed
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)
-        ) {
-            if (parameters != null) {
-                for (int i = 0; i < parameters.length; i++) {
-                    int parameterIndex = i + 1;
-                    preparedStatement.setString(parameterIndex, parameters[i]);
-                }
-            }
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                id = resultSet.getInt(ID_STRING);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
     int executeQuery(String query, Product product) {
-        int id = -1; //returns -1 when no ID return is needed
+        int id = -1; //returns -1 if not successful
         try {
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
@@ -185,8 +159,7 @@ public abstract class DatabaseConnection {
         return result;
     }
 
-    void executeDelete(String query, Object objectToDelete) {
-        int id = getId(objectToDelete);
+    void executeDelete(String query, int id) {
         try {
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
@@ -200,27 +173,6 @@ public abstract class DatabaseConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private int getId(Object objectToDelete) {
-        int id = 0;
-        if (objectToDelete instanceof Product) {
-            Product product = (Product) objectToDelete;
-            id = product.getId();
-        } else if (objectToDelete instanceof ProductCategory) {
-            ProductCategory productCategory = (ProductCategory) objectToDelete;
-            id = productCategory.getId();
-        } else if (objectToDelete instanceof Supplier) {
-            Supplier supplier = (Supplier) objectToDelete;
-            id = supplier.getId();
-        } else if (objectToDelete instanceof ShoppingCart) {
-            ShoppingCart shoppingCart = (ShoppingCart) objectToDelete;
-            id = shoppingCart.getId();
-        } else if (objectToDelete instanceof Customer) {
-            Customer customer = (Customer) objectToDelete;
-            id = customer.getId();
-        }
-        return id;
     }
 
 }
