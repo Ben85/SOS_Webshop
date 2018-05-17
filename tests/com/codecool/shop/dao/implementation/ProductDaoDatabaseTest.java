@@ -6,17 +6,20 @@ import com.codecool.shop.model.Supplier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductDaoDatabaseTest {
     Product product;
+    private Random random = new Random();
 
     @BeforeEach
     public void init() {
-        ProductCategory cat = new ProductCategory("category name 1", "department 1", "no description");
+        ProductCategory cat = new ProductCategory(random.nextInt(666666), "category name 1", "department 1", "no description");
         Supplier sup = new Supplier(" supplier name 1", "description");
 
-        Product product = new Product("prod name 1", 100L, "HUF", "No", cat, sup, "XL", "black");
+        Product product = new Product("prod name 1", random.nextInt(666666), 100L, "HUF", "No", cat, sup, "XL", "black");
         this.product = product;
 
     }
