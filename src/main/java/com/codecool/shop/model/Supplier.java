@@ -36,13 +36,6 @@ public class Supplier extends BaseModel {
         );
     }
 
-    public static Supplier getSupplierById(int id) {
-        for (Supplier supplier : suppliers) {
-            if (supplier.id == id) return supplier;
-        }
-        return null;
-    }
-
     @Override
     public int getId() {
         return id;
