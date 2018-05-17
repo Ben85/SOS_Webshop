@@ -20,7 +20,7 @@ public abstract class DatabaseConnection {
     }
 
     int executeQuery(String query, Product product) {
-        int id = -1; //returns -1 when no ID return is needed
+        int id = -1; //returns -1 if not successful
         try {
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
