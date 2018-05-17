@@ -17,8 +17,8 @@
             </div>
 
             <div th:if="${session.customer}">
-                <div th:text="'Üdvözöllek ' + ${session.customer.getFirstName()}"></div>
-                <button>Kijelentkezés</button>
+                <div th:text="'Üdvözöllek ' + ${session.customer.getFirstName()}" id="welcome"></div>
+                <a href="/logout"><button id="logout-button">Kijelentkezés</button></a>
             </div>
 
             <div th:unless="${session.customer}" class="col text-center" id="login-container">

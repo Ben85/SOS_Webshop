@@ -53,7 +53,7 @@ public class ProductController extends AbstractController {
                     resp.sendRedirect("/");
                 }
             } else {
-
+                resp.sendRedirect("/");
             }
         }
 
