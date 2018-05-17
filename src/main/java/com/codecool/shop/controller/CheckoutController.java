@@ -1,5 +1,7 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.implementation.CustomerDaoDatabase;
+import com.codecool.shop.helper.Hash;
 import com.codecool.shop.model.Customer;
 import org.thymeleaf.context.WebContext;
 
@@ -15,10 +17,11 @@ public class CheckoutController extends AbstractController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String plainPassword = req.getParameter("password");
         Customer customer = new Customer(
                 req.getParameter("firstName"),
                 req.getParameter("lastName"),
-                req.getParameter("password"), //TODO: hashedPassword
+                Hash.hashPassword(plainPassword),
                 req.getParameter("email"),
                 Integer.parseInt(req.getParameter("phoneNum")),
                 req.getParameter("zipCode"),
@@ -33,6 +36,7 @@ public class CheckoutController extends AbstractController {
 
         HttpSession session = req.getSession();
         session.setAttribute("customer", customer);
+        CustomerDaoDatabase.getInstance().add(customer);
 
         resp.sendRedirect("/summary");
     }
