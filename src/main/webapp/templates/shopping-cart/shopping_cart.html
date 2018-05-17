@@ -76,11 +76,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-md-4">
-                                    <a class="btn btn-danger remove" th:data-id="${entry.key.getId()}" href="/shopping-cart">Remove</a>
+                                    <a class="btn btn-danger remove" th:data-id="${entry.key.getId()}" href="/shopping-cart">Törlés</a>
                                 </div>
                                 <div class="col-xs-12 col-md-8">
                                     <input title="Amount" class="amount" th:data-id="${entry.key.getId()}" type="number" th:value="${entry.value}">
-                                    <a class="btn btn-success set" th:data-id="${entry.key.getId()}" href="/shopping-cart">Set</a>
+                                    <a class="btn btn-success set" th:data-id="${entry.key.getId()}" href="/shopping-cart">Beállít</a>
                                 </div>
                             </div>
                         </div>

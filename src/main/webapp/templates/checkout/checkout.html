@@ -44,21 +44,28 @@
 <div class="container">
 
     <form id="checkoutForm" action="/checkout" method="POST">
-        <div class="well well-sm">
-            <strong>Személyes adatok</strong>
+        <div th:if="${session.customer}">
+            <div class="well well-sm">
+                <strong>Számlázási cím</strong>
+            </div>
+            <p th:text="'Irányítószám: ' + ${session.customer.getBillingZipCode()}"></p>
+            <p th:text="'Város: ' + ${session.customer.getBillingCity()}"></p>
+            <p th:text="'Cím: ' + ${session.customer.getBillingAddress()}"></p>
         </div>
-        <p>
-            <label for="lastName">Vezetéknév</label><br>
-            <input name="lastName" id="lastName" required>
-        </p>
-        <p id="lastNameError"></p>
-        <p>
-            <label for="firstName">Keresztnév</label><br>
-            <input name="firstName" id="firstName" required>
-        </p>
-        <p id="firstNameError"></p>
-        <div th:if="${session.customer}"></div>
         <div th:unless="${session.customer}">
+            <div class="well well-sm">
+                <strong>Személyes adatok</strong>
+            </div>
+            <p>
+                <label for="lastName">Vezetéknév</label><br>
+                <input name="lastName" id="lastName" required>
+            </p>
+            <p id="lastNameError"></p>
+            <p>
+                <label for="firstName">Keresztnév</label><br>
+                <input name="firstName" id="firstName" required>
+            </p>
+            <p id="firstNameError"></p>
             <p>
                 <label for="username">Felhasználónév</label><br>
                 <input name="username" id="username" required>
@@ -71,33 +78,33 @@
                 <label for="passwordConfirmation">Jelszó megerősítése</label><br>
                 <input type="password" name="passwordConfirmation" id="passwordConfirmation" required>
             </p>
-        </div>
-        <p id="passwordError"></p>
-        <p>
-            <label for="email">Email</label><br>
-            <input name="email" id="email" required>
-        <p id="emailError"></p>
-        <p>
-            <label for="phoneNum">Telefonszám</label><br>
-            +36-<input name="phoneNum" id="phoneNum" placeholder="000000000" required>
-        </p>
-        <p id="phoneNumError"></p>
-        <div class="well well-sm">
-            <strong>Számlázási cím</strong>
-        </div>
-        <div id="billingAddressDiv">
+            <p id="passwordError"></p>
             <p>
-                <label for="billingZipCode">Irányítószám</label><br>
-                <input name="billingZipCode" id="billingZipCode" required>
-            </p>
+                <label for="email">Email</label><br>
+                <input name="email" id="email" required>
+            <p id="emailError"></p>
             <p>
-                <label for="billingCity">Település</label><br>
-                <input name="billingCity" id="billingCity" required>
+                <label for="phoneNum">Telefonszám</label><br>
+                +36-<input name="phoneNum" id="phoneNum" placeholder="000000000" required>
             </p>
-            <p>
-                <label for="billingAddress">Cím</label><br>
-                <input name="billingAddress" id="billingAddress" required>
-            </p>
+            <p id="phoneNumError"></p>
+            <div class="well well-sm">
+                <strong>Számlázási cím</strong>
+            </div>
+            <div id="billingAddressDiv">
+                <p>
+                    <label for="billingZipCode">Irányítószám</label><br>
+                    <input name="billingZipCode" id="billingZipCode" required>
+                </p>
+                <p>
+                    <label for="billingCity">Település</label><br>
+                    <input name="billingCity" id="billingCity" required>
+                </p>
+                <p>
+                    <label for="billingAddress">Cím</label><br>
+                    <input name="billingAddress" id="billingAddress" required>
+                </p>
+            </div>
         </div>
         <div class="well well-sm">
             <strong>Szállítási cím</strong>

@@ -18,25 +18,27 @@ public class CheckoutController extends AbstractController {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String plainPassword = req.getParameter("password");
-        Customer customer = new Customer(
-                req.getParameter("firstName"),
-                req.getParameter("lastName"),
-                Hash.hashPassword(plainPassword),
-                req.getParameter("email"),
-                Integer.parseInt(req.getParameter("phoneNum")),
-                req.getParameter("zipCode"),
-                req.getParameter("city"),
-                req.getParameter("address"),
-                req.getParameter("billingZipCode"),
-                req.getParameter("billingCity"),
-                req.getParameter("billingAddress"),
-                req.getParameter("username"),
-                req.getParameter("sameAsAbove")
-        );
-
         HttpSession session = req.getSession();
-        session.setAttribute("customer", customer);
-        CustomerDaoDatabase.getInstance().add(customer);
+        if(session.getAttribute("customer") == null) {
+            Customer customer = new Customer(
+                    req.getParameter("firstName"),
+                    req.getParameter("lastName"),
+                    Hash.hashPassword(plainPassword),
+                    req.getParameter("email"),
+                    Integer.parseInt(req.getParameter("phoneNum")),
+                    req.getParameter("zipCode"),
+                    req.getParameter("city"),
+                    req.getParameter("address"),
+                    req.getParameter("billingZipCode"),
+                    req.getParameter("billingCity"),
+                    req.getParameter("billingAddress"),
+                    req.getParameter("username"),
+                    req.getParameter("sameAsAbove")
+            );
+            session.setAttribute("customer", customer);
+            CustomerDaoDatabase.getInstance().add(customer);
+        }
+
 
         resp.sendRedirect("/summary");
     }
