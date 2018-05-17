@@ -26,9 +26,6 @@
 
     <script src="static/js/checkout.js" defer></script>
 
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-    <script src="static/js/payment.js" defer></script>
-
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
@@ -41,56 +38,81 @@
 
 <div class="container">
 
-    <form action="/checkout" method="POST">
+    <form id="checkoutForm" action="/checkout" method="POST">
         <div class="well well-sm">
             <strong>Személyes adatok</strong>
         </div>
         <p>
-            <label for="userName">Név</label><br>
-            <input name="userName" id="userName" required>
+            <label for="lastName">Vezetéknév</label><br>
+            <input name="lastName" id="lastName" required>
         </p>
+        <p id="lastNameError"></p>
+        <p>
+            <label for="firstName">Keresztnév</label><br>
+            <input name="firstName" id="firstName" required>
+        </p>
+        <p id="firstNameError"></p>
+        <p>
+            <label for="username">Felhasználónév</label><br>
+            <input name="username" id="username" required>
+        </p>
+        <p>
+            <label for="password">Jelszó</label><br>
+            <input type="password" name="password" id="password" required>
+        </p>
+        <p>
+            <label for="passwordConfirmation">Jelszó megerősítése</label><br>
+            <input type="password" name="passwordConfirmation" id="passwordConfirmation" required>
+        </p>
+        <p id="passwordError"></p>
         <p>
             <label for="email">Email</label><br>
             <input name="email" id="email" required>
         <p id="emailError"></p>
         <p>
             <label for="phoneNum">Telefonszám</label><br>
-            <input name="phoneNum" id="phoneNum" required>
+            +36-<input name="phoneNum" id="phoneNum" placeholder="000000000" required>
         </p>
-        <p>
-            <label for="zipCode">Irányítószám</label><br>
-            <input name="zipCode" id="zipCode" required>
-        </p>
-        <p>
-            <label for="city">Település</label><br>
-            <input name="city" id="city" required>
-        </p>
-        <p>
-            <label for="address">Cím</label><br>
-            <input name="address" id="address" required>
-        </p>
+        <p id="phoneNumError"></p>
         <div class="well well-sm">
             <strong>Számlázási cím</strong>
         </div>
-        <p>
-            <input type="checkbox" id="sameAddress" title="sameAsAbove" name="sameAsAbove" value="true"> Megegyezik a fentiekkel.<br>
-        </p>
         <div id="billingAddressDiv">
             <p>
                 <label for="billingZipCode">Irányítószám</label><br>
-                <input name="billingZipCode" id="billingZipCode">
+                <input name="billingZipCode" id="billingZipCode" required>
             </p>
             <p>
                 <label for="billingCity">Település</label><br>
-                <input name="billingCity" id="billingCity">
+                <input name="billingCity" id="billingCity" required>
             </p>
             <p>
                 <label for="billingAddress">Cím</label><br>
-                <input name="billingAddress" id="billingAddress">
+                <input name="billingAddress" id="billingAddress" required>
             </p>
         </div>
-        <div id="paypal-button"></div>
-        <button><a id="submit">Tovább</a></button>
+        <div class="well well-sm">
+            <strong>Szállítási cím</strong>
+        </div>
+        <p>
+            <input type="checkbox" id="sameAddress" title="sameAsAbove" name="sameAsAbove" value="true"> Megegyezik a
+            számlázási címmel.<br>
+        </p>
+        <div id="AddressDiv">
+            <p>
+                <label for="zipCode">Irányítószám</label><br>
+                <input name="zipCode" id="zipCode">
+            </p>
+            <p>
+                <label for="city">Település</label><br>
+                <input name="city" id="city">
+            </p>
+            <p>
+                <label for="address">Cím</label><br>
+                <input name="address" id="address">
+            </p>
+        </div>
+        <button id="submitBtn">Tovább</button>
     </form>
 
 </div>

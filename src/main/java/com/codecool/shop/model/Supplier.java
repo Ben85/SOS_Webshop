@@ -5,10 +5,13 @@ import java.util.List;
 
 public class Supplier extends BaseModel {
     private List<Product> products;
+    private static List<Supplier> suppliers = new ArrayList<>();
+    private int id;
 
     public Supplier(String name, String description) {
         super(name, description);
         this.products = new ArrayList<>();
+        suppliers.add(this);
     }
 
     public void setProducts(ArrayList<Product> products) {
@@ -31,5 +34,15 @@ public class Supplier extends BaseModel {
                 this.name,
                 this.description
         );
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 }
