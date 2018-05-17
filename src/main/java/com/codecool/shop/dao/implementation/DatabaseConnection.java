@@ -19,7 +19,6 @@ public abstract class DatabaseConnection {
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
     }
 
-
     int executeQuery(String query, String[] parameters) {
         int id = -1; //returns -1 when no ID return is needed
         try {
