@@ -18,7 +18,7 @@ dom = {
                 modalBody.innerHTML = "";
 
                 let imageDiv = document.createElement("div");
-                imageDiv.setAttribute("class", "col-md-4");
+                imageDiv.setAttribute("class", "col-sm");
                 let image = document.createElement("img");
                 image.setAttribute("class", "group list-group-image");
                 image.setAttribute("src", "/static/img/product_" + productId + ".jpg");
@@ -26,7 +26,7 @@ dom = {
                 modalBody.appendChild(imageDiv);
 
                 let infoDiv = document.createElement("div");
-                infoDiv.setAttribute("class", "caption col-md-4 ml-auto");
+                infoDiv.setAttribute("class", "caption col-sm");
 
                 let prodNameTag = document.createElement("h4");
                 prodNameTag.innerHTML = productName;
@@ -36,36 +36,37 @@ dom = {
                 infoRow.setAttribute("class", "row");
 
                 let sizeDiv = document.createElement("div");
-                sizeDiv.setAttribute("class", "col-xs-12 col-md-6");
+                sizeDiv.setAttribute("class", "col-xs-12 col-md");
                 let sizeP = document.createElement("p");
                 sizeP.setAttribute("class", "lead");
                 sizeP.innerHTML = productSize;
                 sizeDiv.appendChild(sizeP);
 
                 let colorDiv = document.createElement("div");
-                colorDiv.setAttribute("class", "col-xs-12 col-md-6");
+                colorDiv.setAttribute("class", "col-xs-12 col-md");
                 let colorP = document.createElement("p");
                 colorP.setAttribute("class", "lead");
                 colorP.innerHTML = productColor;
                 colorDiv.appendChild(colorP);
 
-                let priceRow = document.createElement("div");
-                priceRow.setAttribute("class", "row");
+                // let priceRow = document.createElement("div");
+                // priceRow.setAttribute("class", "row");
 
                 let priceDiv = document.createElement("div");
-                priceDiv.setAttribute("class", "col-xs-12 col-md-6");
+                priceDiv.setAttribute("class", "col-xs-12 col-md");
 
                 let priceP = document.createElement("p");
                 priceP.setAttribute("class", "lead");
                 priceP.innerHTML = productPrice;
 
                 priceDiv.appendChild(priceP);
-                priceRow.appendChild(priceDiv);
+                // priceRow.appendChild(priceDiv);
 
 
                 infoDiv.appendChild(sizeDiv);
                 infoDiv.appendChild(colorDiv);
-                infoDiv.appendChild(priceRow);
+                infoDiv.appendChild(priceDiv);
+                //infoDiv.appendChild(priceRow);
 
                 modalBody.appendChild(infoDiv);
 
