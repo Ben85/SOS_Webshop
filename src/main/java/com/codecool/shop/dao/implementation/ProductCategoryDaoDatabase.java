@@ -41,7 +41,7 @@ public class ProductCategoryDaoDatabase extends DatabaseConnection implements Pr
         String name = (String) categoryData.get("name");
         String department = (String) categoryData.get("department");
         String description = (String) categoryData.get("description");
-        return new ProductCategory(name, department, description);
+        return new ProductCategory(id, name, department, description);
     }
 
     @Override
@@ -60,10 +60,11 @@ public class ProductCategoryDaoDatabase extends DatabaseConnection implements Pr
         ArrayList<ProductCategory> categories = new ArrayList<>();
         ArrayList<HashMap<String, Object>> records = selectAll();
         for (HashMap<String, Object> record : records) {
+            int id = (int) record.get("id");
             String name = (String) record.get("name");
             String department = (String) record.get("department");
             String description = (String) record.get("description");
-            categories.add(new ProductCategory(name, department, description));
+            categories.add(new ProductCategory(id, name, department, description));
         }
         return categories;
     }
