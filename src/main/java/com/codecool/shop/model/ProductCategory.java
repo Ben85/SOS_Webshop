@@ -17,13 +17,6 @@ public class ProductCategory extends BaseModel {
         categories.add(this);
     }
 
-    public static ProductCategory getProductCategoryById(int id) {
-        for (ProductCategory category: categories) {
-            if (category.id == id) return category;
-        }
-        return null;
-    }
-
     public String getDepartment() {
         return department;
     }
