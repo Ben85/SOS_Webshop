@@ -1,8 +1,8 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.CustomerDaoDatabase;
+import com.codecool.shop.helper.Hash;
 import com.codecool.shop.model.Customer;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
@@ -16,27 +16,35 @@ import java.io.IOException;
 public class CheckoutController extends AbstractController {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        Customer customer = new Customer(
-                req.getParameter("userName"),
-                req.getParameter("email"),
-                req.getParameter("phoneNum"),
-                req.getParameter("billingZipCode"),
-                req.getParameter("zipCode"),
-                req.getParameter("city"),
-                req.getParameter("billingCity"),
-                req.getParameter("address"),
-                req.getParameter("billingAddress"),
-                req.getParameter("sameAsAbove"));
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String plainPassword = req.getParameter("password");
         HttpSession session = req.getSession();
-        session.setAttribute("customer", customer);
+        if(session.getAttribute("customer") == null) {
+            Customer customer = new Customer(
+                    req.getParameter("firstName"),
+                    req.getParameter("lastName"),
+                    Hash.hashPassword(plainPassword),
+                    req.getParameter("email"),
+                    Integer.parseInt(req.getParameter("phoneNum")),
+                    req.getParameter("zipCode"),
+                    req.getParameter("city"),
+                    req.getParameter("address"),
+                    req.getParameter("billingZipCode"),
+                    req.getParameter("billingCity"),
+                    req.getParameter("billingAddress"),
+                    req.getParameter("username"),
+                    req.getParameter("sameAsAbove")
+            );
+            session.setAttribute("customer", customer);
+            CustomerDaoDatabase.getInstance().add(customer);
+        }
+
 
         resp.sendRedirect("/summary");
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         if (getShoppingCart(req).getItemList().isEmpty()) {

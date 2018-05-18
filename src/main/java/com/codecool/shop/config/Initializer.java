@@ -1,6 +1,5 @@
 package com.codecool.shop.config;
 
-import com.codecool.shop.controller.CreatePaymentController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 @WebListener
 public class Initializer implements ServletContextListener {
@@ -90,6 +88,7 @@ public class Initializer implements ServletContextListener {
                 "product-categories",
                 (JSONObject currentObject) -> {
                     productCategoryDataStore.add(new ProductCategory(
+                            Math.toIntExact((Long) currentObject.get("id")),
                             (String) currentObject.get("name"),
                             (String) currentObject.get("department"),
                             (String) currentObject.get("description")
@@ -102,6 +101,7 @@ public class Initializer implements ServletContextListener {
                 (JSONObject currentObject) -> {
                     productDataStore.add(new Product(
                             (String) currentObject.get("name"),
+                            Math.toIntExact((Long) currentObject.get("id")),
                             ((Long) currentObject.get("defaultPrice")),
                             (String) currentObject.get("currencyString"),
                             (String) currentObject.get("description"),
