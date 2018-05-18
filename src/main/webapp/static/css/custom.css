@@ -1,10 +1,46 @@
+body {
+    background-color: #e7f3ff;
+}
+
+.container-fluid{
+    background-color: #1f5846;
+}
+
+#title{
+    color: #e7f3ff;
+}
+
+.log-color{
+    color: #e7f3ff;
+}
+
+.log-button{
+    background-color: #d07118;
+    color: #e7f3ff;
+    border: #e7f3ff;
+}
+
+.reg-button{
+    background-color: #888551;
+    color: #e7f3ff;
+    border: #e7f3ff;
+}
+
+.modal-title{
+    color: #e7f3ff;
+}
+
+.modal-header{
+    background-color: #1f5846;
+}
+
 .glyphicon {
     margin-right: 5px;
 }
 
 .thumbnail {
     margin-bottom: 20px;
-    padding: 0px;
+    padding: 1em;
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
@@ -30,7 +66,7 @@
 }
 
 .item.list-group-item .thumbnail {
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }
 
 .item.list-group-item .caption {
