@@ -1,5 +1,7 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.implementation.CustomerDaoDatabase;
+import com.codecool.shop.helper.Hash;
 import com.codecool.shop.model.Customer;
 import org.thymeleaf.context.WebContext;
 
@@ -15,24 +17,28 @@ public class CheckoutController extends AbstractController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Customer customer = new Customer(
-                req.getParameter("firstName"),
-                req.getParameter("lastName"),
-                req.getParameter("password"), //TODO: hashedPassword
-                req.getParameter("email"),
-                Integer.parseInt(req.getParameter("phoneNum")),
-                req.getParameter("zipCode"),
-                req.getParameter("city"),
-                req.getParameter("address"),
-                req.getParameter("billingZipCode"),
-                req.getParameter("billingCity"),
-                req.getParameter("billingAddress"),
-                req.getParameter("username"),
-                req.getParameter("sameAsAbove")
-        );
-
+        String plainPassword = req.getParameter("password");
         HttpSession session = req.getSession();
-        session.setAttribute("customer", customer);
+        if(session.getAttribute("customer") == null) {
+            Customer customer = new Customer(
+                    req.getParameter("firstName"),
+                    req.getParameter("lastName"),
+                    Hash.hashPassword(plainPassword),
+                    req.getParameter("email"),
+                    Integer.parseInt(req.getParameter("phoneNum")),
+                    req.getParameter("zipCode"),
+                    req.getParameter("city"),
+                    req.getParameter("address"),
+                    req.getParameter("billingZipCode"),
+                    req.getParameter("billingCity"),
+                    req.getParameter("billingAddress"),
+                    req.getParameter("username"),
+                    req.getParameter("sameAsAbove")
+            );
+            session.setAttribute("customer", customer);
+            CustomerDaoDatabase.getInstance().add(customer);
+        }
+
 
         resp.sendRedirect("/summary");
     }

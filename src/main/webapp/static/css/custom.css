@@ -130,12 +130,19 @@ th {
 #cart-image {
     float: left;
 }
-#header-body {
-    background-color: darkorchid;
-}
 .login-parts {
     float: right;
 }
 #login-container {
     margin: 15px;
+}
+#welcome {
+    font-size: 24pt;
+    margin: 15px;
+}
+#logout-button {
+    float: right;
+}
+#addToCartLabel {
+    color: white;
 }

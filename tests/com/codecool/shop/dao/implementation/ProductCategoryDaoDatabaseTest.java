@@ -4,11 +4,14 @@ import com.codecool.shop.model.ProductCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProductCategoryDaoDatabaseTest {
 
     private ProductCategoryDaoDatabase categoryDaoDb;
+    private Random random = new Random();
 
     @BeforeEach
     void setUp() {
@@ -17,7 +20,7 @@ class ProductCategoryDaoDatabaseTest {
 
     @Test
     public void addToDatabase() {
-        ProductCategory category = new ProductCategory("category name", "department", "category description");
+        ProductCategory category = new ProductCategory(random.nextInt(666666), "category name", "department", "category description");
         int sizeBefore = categoryDaoDb.getAll().size();
 
         categoryDaoDb.add(category);
@@ -26,7 +29,7 @@ class ProductCategoryDaoDatabaseTest {
 
     @Test
     public void deleteFromDatabase() {
-        ProductCategory categoryToDelete = new ProductCategory("delete this", "delete this", "delete this");
+        ProductCategory categoryToDelete = new ProductCategory(random.nextInt(666666), "delete this", "delete this", "delete this");
         categoryDaoDb.add(categoryToDelete);
         int sizeBeforeDelete = categoryDaoDb.getAll().size();
 

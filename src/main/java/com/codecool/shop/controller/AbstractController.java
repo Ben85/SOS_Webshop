@@ -65,7 +65,7 @@ public abstract class AbstractController extends HttpServlet {
         return content.toString();
     }
 
-    void renderJSON(JSONObject jsonResponse,HttpServletResponse response)
+    void renderJSON(JSONObject jsonResponse, HttpServletResponse response)
         throws IOException
     {
         writeUTF8ToBuffer(jsonResponse.toJSONString(), response.getOutputStream());

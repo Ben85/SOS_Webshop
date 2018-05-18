@@ -16,9 +16,15 @@
             <div class="text-center col-6">
                 <h1 id="title">Göncök</h1>
             </div>
-            <div class="col text-center" id="login-container">
-                <form action="">
-                    <div class="login-parts log-color">
+
+            <div th:if="${session.customer}">
+                <div th:text="'Üdvözöllek ' + ${session.customer.getFirstName()}" id="welcome"></div>
+                <a href="/logout"><button id="logout-button">Kijelentkezés</button></a>
+            </div>
+
+            <div th:unless="${session.customer}" class="col text-center" id="login-container">
+                <form action="/" method="POST">
+                    <div class="login-parts">
                         <label for="username">Felasználónév</label>
                         <input type="text" name="username" id="username"><br>
                     </div>
@@ -27,11 +33,9 @@
                         <input type="password" name="password" id="password"><br>
                     </div>
                     <div class="login-parts">
-                        <button type="submit" class="log-button">Belépés</button>
-                        <a href=""><button class="reg-button">Regisztráció</button></a>
+                        <button type="submit">Belépés</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

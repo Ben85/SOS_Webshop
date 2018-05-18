@@ -1,10 +1,11 @@
 package com.codecool.paypal;
 
+import com.codecool.paypal.basetypes.BaseStructure;
 import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 
 @SuppressWarnings("unchecked")
-public class RedirectURLs extends BaseTypes.BaseStructureType {
+public class RedirectURLs extends BaseStructure {
     private String returnURL;
     private String cancelURL;
 
